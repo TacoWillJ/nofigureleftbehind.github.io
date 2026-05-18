@@ -9,840 +9,663 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=IM+Fell+English:ital@0;1&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --black:       #080604;
-      --deep:        #100d08;
-      --surface:     #18130d;
-      --panel:       #201a11;
-      --border:      #332817;
-      --border-hi:   #5a3f1e;
-      --gold:        #c49035;
-      --gold-bright: #e8b860;
-      --gold-dim:    #6b4d1e;
-      --red:         #7a1515;
-      --red-bright:  #b03020;
-      --parchment:   #cfc09a;
-      --text:        #aa9870;
-      --text-dim:    #5c5038;
-      --text-bright: #ddd0a8;
+      --black:#080604;--surface:#18130d;--panel:#201a11;--border:#332817;
+      --border-hi:#5a3f1e;--gold:#c49035;--gold-bright:#e8b860;--gold-dim:#6b4d1e;
+      --red:#7a1515;--red-bright:#b03020;--parchment:#cfc09a;
+      --text:#aa9870;--text-dim:#5c5038;--text-bright:#ddd0a8;
     }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--black);color:var(--text);font-family:'IM Fell English',Georgia,serif;overflow-x:hidden;}
+    body::before{content:'';position:fixed;inset:0;z-index:900;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      pointer-events:none;opacity:0.5;}
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    /* TOPBAR */
+    .topbar{position:fixed;top:0;left:0;right:0;z-index:800;
+      background:linear-gradient(180deg,rgba(8,6,4,.98),rgba(8,6,4,.85));
+      border-bottom:1px solid var(--border);display:flex;align-items:center;
+      justify-content:space-between;padding:0 2rem;height:52px;}
+    .topbar-brand{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.25em;
+      text-transform:uppercase;color:var(--gold);text-decoration:none;}
+    .topbar-nav{display:flex;}
+    .topbar-nav a{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.2em;
+      text-transform:uppercase;color:var(--text-dim);text-decoration:none;padding:0 1.1rem;
+      height:52px;display:flex;align-items:center;border-left:1px solid var(--border);
+      transition:color .2s,background .2s;}
+    .topbar-nav a:hover{color:var(--gold-bright);background:rgba(201,144,53,.05);}
 
-    body {
-      background: var(--black);
-      color: var(--text);
-      font-family: 'IM Fell English', Georgia, serif;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+    /* HERO */
+    .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;
+      align-items:center;justify-content:center;padding:8rem 2rem 6rem;overflow:hidden;}
+    .hero-bg{position:absolute;inset:0;background:
+      radial-gradient(ellipse 70% 55% at 50% 35%,rgba(122,21,21,.14) 0%,transparent 65%),
+      radial-gradient(ellipse 50% 40% at 50% 90%,rgba(196,144,53,.06) 0%,transparent 60%),
+      linear-gradient(180deg,#080604 0%,#0f0b07 50%,#080604 100%);}
+    .hero-rule{position:absolute;left:0;right:0;height:1px;
+      background:linear-gradient(90deg,transparent,var(--border-hi) 30%,var(--gold-dim) 50%,var(--border-hi) 70%,transparent);opacity:.5;}
+    .hero-rule--top{top:52px;}.hero-rule--bot{bottom:0;}
+    .bracket{position:absolute;width:80px;height:80px;opacity:.35;}
+    .bracket--tl{top:72px;left:2rem;border-top:1px solid var(--gold);border-left:1px solid var(--gold);}
+    .bracket--tr{top:72px;right:2rem;border-top:1px solid var(--gold);border-right:1px solid var(--gold);}
+    .bracket--bl{bottom:20px;left:2rem;border-bottom:1px solid var(--gold);border-left:1px solid var(--gold);}
+    .bracket--br{bottom:20px;right:2rem;border-bottom:1px solid var(--gold);border-right:1px solid var(--gold);}
+    .hero-inner{position:relative;z-index:2;text-align:center;max-width:820px;}
+    .hero-pretitle{font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:.5em;
+      color:var(--gold-dim);text-transform:uppercase;margin-bottom:2rem;animation:fadeUp 1s .1s both;}
+    .hero-skull{font-size:2.8rem;line-height:1;display:block;margin-bottom:1.5rem;color:var(--red-bright);
+      text-shadow:0 0 30px rgba(176,48,32,.7),0 0 80px rgba(122,21,21,.4);
+      animation:fadeUp 1s .2s both,skullPulse 5s 1.2s ease-in-out infinite;}
+    @keyframes skullPulse{0%,100%{text-shadow:0 0 30px rgba(176,48,32,.7),0 0 80px rgba(122,21,21,.4);}
+      50%{text-shadow:0 0 50px rgba(200,60,40,.9),0 0 120px rgba(150,30,20,.6);}}
+    h1{font-family:'Cinzel Decorative',serif;font-weight:900;font-size:clamp(1.9rem,5.5vw,4.2rem);
+      line-height:1.08;color:var(--gold-bright);text-shadow:0 0 30px rgba(232,184,96,.3),0 2px 6px rgba(0,0,0,.9);
+      letter-spacing:.03em;margin-bottom:.6rem;animation:fadeUp 1s .3s both;}
+    .hero-sub{font-family:'Cinzel',serif;font-size:clamp(.65rem,1.8vw,.85rem);letter-spacing:.35em;
+      text-transform:uppercase;color:var(--gold-dim);margin-bottom:2.5rem;animation:fadeUp 1s .4s both;}
+    .ornament-line{display:flex;align-items:center;gap:1rem;max-width:480px;margin:0 auto 2.5rem;animation:fadeUp 1s .5s both;}
+    .ornament-line::before{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--border-hi));}
+    .ornament-line::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border-hi),transparent);}
+    .ornament-line span{color:var(--gold);font-size:.9rem;}
+    .hero-lore{font-style:italic;font-size:clamp(.95rem,2vw,1.1rem);line-height:1.85;color:var(--text);
+      max-width:620px;margin:0 auto 3.5rem;animation:fadeUp 1s .6s both;}
+    .hero-lore strong{color:var(--parchment);font-style:normal;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+    .scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:2;
+      color:var(--gold-dim);font-size:1.2rem;animation:fadeUp 1s 1.2s both,caretBounce 2s 2.2s ease-in-out infinite;}
+    @keyframes caretBounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(7px);}}
 
-    /* Noise grain overlay */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 900;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-      pointer-events: none; opacity: 0.5;
-    }
+    /* NAV CARDS */
+    .nav-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;width:100%;max-width:800px;
+      border:1px solid var(--border);background:var(--border);animation:fadeUp 1s .8s both;}
+    .nav-card{background:var(--surface);padding:1.75rem 1.25rem;text-align:center;text-decoration:none;
+      color:var(--text);display:flex;flex-direction:column;align-items:center;gap:.4rem;
+      position:relative;overflow:hidden;transition:background .25s;}
+    .nav-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+      background:linear-gradient(90deg,var(--red),var(--gold));transform:scaleX(0);transition:transform .3s ease;}
+    .nav-card:hover{background:var(--panel);}
+    .nav-card:hover::after{transform:scaleX(1);}
+    .nav-card:hover .nav-card-title{color:var(--gold-bright);}
+    .nav-card-icon{font-size:1.6rem;display:block;}
+    .nav-card-label{font-family:'Share Tech Mono',monospace;font-size:.55rem;letter-spacing:.3em;color:var(--gold-dim);text-transform:uppercase;}
+    .nav-card-title{font-family:'Cinzel',serif;font-size:.8rem;font-weight:700;color:var(--text-bright);transition:color .25s;}
 
-    /* ── TOPBAR ── */
-    .topbar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 800;
-      background: linear-gradient(180deg, rgba(8,6,4,0.98) 0%, rgba(8,6,4,0.85) 100%);
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2rem; height: 52px;
-    }
+    /* SECTIONS */
+    section{padding:5rem 2rem;border-top:1px solid var(--border);}
+    .section-inner{max-width:1200px;margin:0 auto;}
+    .section-header{text-align:center;margin-bottom:3rem;}
+    .section-eyebrow{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.45em;
+      color:var(--gold-dim);text-transform:uppercase;display:block;margin-bottom:.75rem;}
+    .section-title{font-family:'Cinzel',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:700;color:var(--gold);margin-bottom:.75rem;}
+    .section-rule{width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim),transparent);margin:0 auto;}
 
-    .topbar-brand {
-      font-family: 'Cinzel', serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold);
-      text-decoration: none;
-    }
+    /* STATS */
+    .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);}
+    .stat-cell{background:var(--panel);padding:1.75rem 1rem;text-align:center;}
+    .stat-number{font-family:'Cinzel Decorative',serif;font-size:2.5rem;font-weight:700;color:var(--gold);
+      line-height:1;text-shadow:0 0 20px rgba(196,144,53,.3);display:block;}
+    .stat-label{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.25em;
+      color:var(--text-dim);text-transform:uppercase;margin-top:.4rem;display:block;}
 
-    .topbar-nav { display: flex; }
+    /* ABOUT */
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border:1px solid var(--border);}
+    .about-panel{background:var(--surface);padding:2.5rem 2rem;}
+    .about-panel-title{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;
+      color:var(--gold);margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--border);}
+    .about-panel p{font-size:.95rem;line-height:1.85;color:var(--text);margin-bottom:1rem;}
+    .about-panel p:last-child{margin-bottom:0;}
+    .status-list{list-style:none;}
+    .status-list li{display:flex;align-items:baseline;gap:.75rem;font-size:.9rem;padding:.5rem 0;
+      border-bottom:1px solid rgba(51,40,23,.5);color:var(--text);}
+    .status-list li:last-child{border-bottom:none;}
+    .status-badge{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.1em;
+      padding:.15rem .5rem;border:1px solid;flex-shrink:0;}
+    .badge-yes{color:#6a9a50;border-color:#3a5a28;background:rgba(60,90,30,.15);}
+    .badge-leg{color:#8888aa;border-color:#555580;background:rgba(60,60,100,.15);}
+    .badge-rem{color:var(--red-bright);border-color:var(--red);background:rgba(122,21,21,.15);}
+    .badge-hb{color:var(--gold);border-color:var(--gold-dim);background:rgba(196,144,53,.1);}
+    .badge-unk{color:var(--text-dim);border-color:var(--border-hi);}
 
-    .topbar-nav a {
-      font-family: 'Cinzel', serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-      text-decoration: none;
-      padding: 0 1.2rem;
-      height: 52px;
-      display: flex; align-items: center;
-      border-left: 1px solid var(--border);
-      transition: color 0.2s, background 0.2s;
-    }
-    .topbar-nav a:hover { color: var(--gold-bright); background: rgba(201,144,53,0.05); }
+    /* FACTION FILTER */
+    .filter-bar{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem;justify-content:center;}
+    .filter-btn{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.2em;
+      text-transform:uppercase;padding:.4rem 1rem;border:1px solid var(--border);background:var(--surface);
+      color:var(--text-dim);cursor:pointer;transition:all .2s;}
+    .filter-btn:hover,.filter-btn.active{border-color:var(--gold-dim);color:var(--gold);background:var(--panel);}
 
-    /* ── HERO ── */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 8rem 2rem 6rem;
-      overflow: hidden;
-    }
+    /* CONTENT CARDS */
+    .content-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+      gap:1px;background:var(--border);border:1px solid var(--border);}
+    .content-card{background:var(--surface);padding:1.75rem 1.5rem;text-decoration:none;color:var(--text);
+      display:flex;flex-direction:column;gap:.5rem;position:relative;overflow:hidden;transition:background .2s;}
+    .content-card:hover{background:var(--panel);}
+    .content-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;
+      background:var(--red);transform:scaleY(0);transition:transform .3s ease;transform-origin:top;}
+    .content-card:hover::before{transform:scaleY(1);}
+    .card-faction{font-family:'Share Tech Mono',monospace;font-size:.55rem;letter-spacing:.3em;
+      color:var(--gold-dim);text-transform:uppercase;}
+    .card-title{font-family:'Cinzel',serif;font-size:.95rem;font-weight:600;color:var(--text-bright);transition:color .2s;}
+    .content-card:hover .card-title{color:var(--gold-bright);}
+    .card-desc{font-size:.85rem;font-style:italic;color:var(--text-dim);line-height:1.6;}
+    .card-tag{font-family:'Share Tech Mono',monospace;font-size:.55rem;letter-spacing:.15em;
+      padding:.1rem .45rem;border:1px solid var(--border-hi);color:var(--gold-dim);align-self:flex-start;margin-top:.25rem;}
 
-    .hero-bg {
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 70% 55% at 50% 35%, rgba(122,21,21,0.14) 0%, transparent 65%),
-        radial-gradient(ellipse 50% 40% at 50% 90%, rgba(196,144,53,0.06) 0%, transparent 60%),
-        linear-gradient(180deg, #080604 0%, #0f0b07 50%, #080604 100%);
-    }
+    /* FOOTER */
+    footer{border-top:1px solid var(--border);padding:3rem 2rem;text-align:center;}
+    .footer-inner{max-width:600px;margin:0 auto;}
+    .footer-skull{font-size:1.5rem;color:var(--red);opacity:.5;display:block;margin-bottom:1rem;}
+    .footer-title{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.3em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:.75rem;}
+    .footer-text{font-size:.85rem;font-style:italic;color:var(--text-dim);line-height:1.7;margin-bottom:1.5rem;}
+    .footer-disclaimer{font-family:'Share Tech Mono',monospace;font-size:.55rem;letter-spacing:.1em;color:var(--text-dim);opacity:.6;line-height:1.8;}
 
-    .hero-rule {
-      position: absolute; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent 0%, var(--border-hi) 30%, var(--gold-dim) 50%, var(--border-hi) 70%, transparent 100%);
-      opacity: 0.5;
-    }
-    .hero-rule--top { top: 52px; }
-    .hero-rule--bot { bottom: 0; }
-
-    .bracket {
-      position: absolute;
-      width: 80px; height: 80px;
-      opacity: 0.35;
-    }
-    .bracket--tl { top: 72px; left: 2rem; border-top: 1px solid var(--gold); border-left: 1px solid var(--gold); }
-    .bracket--tr { top: 72px; right: 2rem; border-top: 1px solid var(--gold); border-right: 1px solid var(--gold); }
-    .bracket--bl { bottom: 20px; left: 2rem; border-bottom: 1px solid var(--gold); border-left: 1px solid var(--gold); }
-    .bracket--br { bottom: 20px; right: 2rem; border-bottom: 1px solid var(--gold); border-right: 1px solid var(--gold); }
-
-    .hero-inner {
-      position: relative; z-index: 2;
-      text-align: center;
-      max-width: 820px;
-    }
-
-    .hero-pretitle {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.5em;
-      color: var(--gold-dim);
-      text-transform: uppercase;
-      margin-bottom: 2rem;
-      animation: fadeUp 1s 0.1s both;
-    }
-
-    .hero-skull {
-      font-size: 2.8rem; line-height: 1;
-      display: block; margin-bottom: 1.5rem;
-      color: var(--red-bright);
-      text-shadow: 0 0 30px rgba(176,48,32,0.7), 0 0 80px rgba(122,21,21,0.4);
-      animation: fadeUp 1s 0.2s both, skullPulse 5s 1.2s ease-in-out infinite;
-    }
-
-    @keyframes skullPulse {
-      0%,100% { text-shadow: 0 0 30px rgba(176,48,32,0.7), 0 0 80px rgba(122,21,21,0.4); }
-      50%      { text-shadow: 0 0 50px rgba(200,60,40,0.9), 0 0 120px rgba(150,30,20,0.6); }
-    }
-
-    h1 {
-      font-family: 'Cinzel Decorative', serif;
-      font-weight: 900;
-      font-size: clamp(1.9rem, 5.5vw, 4.2rem);
-      line-height: 1.08;
-      color: var(--gold-bright);
-      text-shadow: 0 0 30px rgba(232,184,96,0.3), 0 2px 6px rgba(0,0,0,0.9);
-      letter-spacing: 0.03em;
-      margin-bottom: 0.6rem;
-      animation: fadeUp 1s 0.3s both;
-    }
-
-    .hero-sub {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(0.65rem, 1.8vw, 0.85rem);
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--gold-dim);
-      margin-bottom: 2.5rem;
-      animation: fadeUp 1s 0.4s both;
-    }
-
-    .ornament-line {
-      display: flex; align-items: center; gap: 1rem;
-      max-width: 480px; margin: 0 auto 2.5rem;
-      animation: fadeUp 1s 0.5s both;
-    }
-    .ornament-line::before, .ornament-line::after {
-      content: ''; flex: 1; height: 1px;
-    }
-    .ornament-line::before { background: linear-gradient(90deg, transparent, var(--border-hi)); }
-    .ornament-line::after  { background: linear-gradient(90deg, var(--border-hi), transparent); }
-    .ornament-line span { color: var(--gold); font-size: 0.9rem; }
-
-    .hero-lore {
-      font-style: italic;
-      font-size: clamp(0.95rem, 2vw, 1.1rem);
-      line-height: 1.85;
-      color: var(--text);
-      max-width: 620px;
-      margin: 0 auto 3.5rem;
-      animation: fadeUp 1s 0.6s both;
-    }
-    .hero-lore strong { color: var(--parchment); font-style: normal; }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── HERO NAV CARDS ── */
-    .nav-cards {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      width: 100%; max-width: 800px;
-      border: 1px solid var(--border);
-      background: var(--border);
-      animation: fadeUp 1s 0.8s both;
-    }
-
-    .nav-card {
-      background: var(--surface);
-      padding: 1.75rem 1.25rem;
-      text-align: center;
-      text-decoration: none;
-      color: var(--text);
-      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
-      position: relative; overflow: hidden;
-      transition: background 0.25s, color 0.25s;
-    }
-
-    .nav-card::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, var(--red), var(--gold));
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-    }
-    .nav-card:hover { background: var(--panel); }
-    .nav-card:hover::after { transform: scaleX(1); }
-    .nav-card:hover .nav-card-title { color: var(--gold-bright); }
-
-    .nav-card-icon { font-size: 1.6rem; display: block; }
-    .nav-card-label {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.55rem; letter-spacing: 0.3em;
-      color: var(--gold-dim); text-transform: uppercase;
-    }
-    .nav-card-title {
-      font-family: 'Cinzel', serif;
-      font-size: 0.8rem; font-weight: 700;
-      color: var(--text-bright);
-      transition: color 0.25s;
-    }
-
-    /* ── SECTIONS ── */
-    section {
-      padding: 5rem 2rem;
-      border-top: 1px solid var(--border);
-    }
-    .section-inner { max-width: 1100px; margin: 0 auto; }
-
-    .section-header { text-align: center; margin-bottom: 3rem; }
-
-    .section-eyebrow {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.6rem; letter-spacing: 0.45em;
-      color: var(--gold-dim); text-transform: uppercase;
-      display: block; margin-bottom: 0.75rem;
-    }
-
-    .section-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(1.3rem, 3vw, 2rem);
-      font-weight: 700; color: var(--gold);
-      margin-bottom: 0.75rem;
-    }
-
-    .section-rule {
-      width: 120px; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
-      margin: 0 auto;
-    }
-
-    /* ── STATS BAR ── */
-    .stats-bar {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px; background: var(--border);
-      border: 1px solid var(--border);
-    }
-    .stat-cell {
-      background: var(--panel);
-      padding: 1.75rem 1rem; text-align: center;
-    }
-    .stat-number {
-      font-family: 'Cinzel Decorative', serif;
-      font-size: 2.5rem; font-weight: 700;
-      color: var(--gold); line-height: 1;
-      text-shadow: 0 0 20px rgba(196,144,53,0.3);
-      display: block;
-    }
-    .stat-label {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.6rem; letter-spacing: 0.25em;
-      color: var(--text-dim); text-transform: uppercase;
-      margin-top: 0.4rem; display: block;
-    }
-
-    /* ── ABOUT GRID ── */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px; background: var(--border);
-      border: 1px solid var(--border);
-    }
-    .about-panel {
-      background: var(--surface);
-      padding: 2.5rem 2rem;
-    }
-    .about-panel-title {
-      font-family: 'Cinzel', serif;
-      font-size: 0.75rem; letter-spacing: 0.25em;
-      text-transform: uppercase; color: var(--gold);
-      margin-bottom: 1.25rem; padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .about-panel p {
-      font-size: 0.95rem; line-height: 1.85;
-      color: var(--text); margin-bottom: 1rem;
-    }
-    .about-panel p:last-child { margin-bottom: 0; }
-
-    .status-list { list-style: none; }
-    .status-list li {
-      display: flex; align-items: baseline; gap: 0.75rem;
-      font-size: 0.9rem; padding: 0.5rem 0;
-      border-bottom: 1px solid rgba(51,40,23,0.5);
-      color: var(--text);
-    }
-    .status-list li:last-child { border-bottom: none; }
-    .status-badge {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.6rem; letter-spacing: 0.1em;
-      padding: 0.15rem 0.5rem; border: 1px solid;
-      flex-shrink: 0;
-    }
-    .badge-yes { color: #6a9a50; border-color: #3a5a28; background: rgba(60,90,30,0.15); }
-    .badge-leg { color: #8888aa; border-color: #555580; background: rgba(60,60,100,0.15); }
-    .badge-rem { color: var(--red-bright); border-color: var(--red); background: rgba(122,21,21,0.15); }
-    .badge-hb  { color: var(--gold); border-color: var(--gold-dim); background: rgba(196,144,53,0.1); }
-    .badge-unk { color: var(--text-dim); border-color: var(--border-hi); }
-
-    /* ── CONTENT CARDS ── */
-    .content-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1px; background: var(--border);
-      border: 1px solid var(--border);
-    }
-    .content-card {
-      background: var(--surface);
-      padding: 1.75rem 1.5rem;
-      text-decoration: none; color: var(--text);
-      display: flex; flex-direction: column; gap: 0.5rem;
-      position: relative; overflow: hidden;
-      transition: background 0.2s;
-    }
-    .content-card:hover { background: var(--panel); }
-    .content-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0;
-      width: 3px; height: 100%;
-      background: var(--red);
-      transform: scaleY(0);
-      transition: transform 0.3s ease;
-      transform-origin: top;
-    }
-    .content-card:hover::before { transform: scaleY(1); }
-
-    .card-faction {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.55rem; letter-spacing: 0.3em;
-      color: var(--gold-dim); text-transform: uppercase;
-    }
-    .card-title {
-      font-family: 'Cinzel', serif;
-      font-size: 0.95rem; font-weight: 600;
-      color: var(--text-bright);
-      transition: color 0.2s;
-    }
-    .content-card:hover .card-title { color: var(--gold-bright); }
-    .card-desc {
-      font-size: 0.85rem; font-style: italic;
-      color: var(--text-dim); line-height: 1.6;
-    }
-    .card-tag {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.55rem; letter-spacing: 0.15em;
-      padding: 0.1rem 0.45rem;
-      border: 1px solid var(--border-hi);
-      color: var(--gold-dim); align-self: flex-start;
-      margin-top: 0.25rem;
-    }
-    .card-wip {
-      border: 1px dashed var(--border-hi) !important;
-      background: transparent !important;
-    }
-    .card-wip .card-faction,
-    .card-wip .card-title { color: var(--text-dim); }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 3rem 2rem; text-align: center;
-    }
-    .footer-inner { max-width: 600px; margin: 0 auto; }
-    .footer-skull {
-      font-size: 1.5rem; color: var(--red);
-      opacity: 0.5; display: block; margin-bottom: 1rem;
-    }
-    .footer-title {
-      font-family: 'Cinzel', serif;
-      font-size: 0.75rem; letter-spacing: 0.3em;
-      color: var(--gold-dim); text-transform: uppercase;
-      margin-bottom: 0.75rem;
-    }
-    .footer-text {
-      font-size: 0.85rem; font-style: italic;
-      color: var(--text-dim); line-height: 1.7;
-      margin-bottom: 1.5rem;
-    }
-    .footer-disclaimer {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.55rem; letter-spacing: 0.1em;
-      color: var(--text-dim); opacity: 0.6; line-height: 1.8;
-    }
-
-    .scroll-hint {
-      position: absolute; bottom: 2.5rem; left: 50%;
-      transform: translateX(-50%); z-index: 2;
-      color: var(--gold-dim); font-size: 1.2rem;
-      animation: fadeUp 1s 1.2s both, caretBounce 2s 2.2s ease-in-out infinite;
-    }
-    @keyframes caretBounce {
-      0%,100% { transform: translateX(-50%) translateY(0); }
-      50%      { transform: translateX(-50%) translateY(7px); }
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 700px) {
-      .nav-cards { grid-template-columns: 1fr 1fr; }
-      .about-grid { grid-template-columns: 1fr; }
-      .stats-bar  { grid-template-columns: 1fr 1fr; }
-      .topbar-brand { font-size: 0.6rem; letter-spacing: 0.15em; }
-      .topbar-nav a { padding: 0 0.75rem; font-size: 0.58rem; }
+    /* RESPONSIVE */
+    @media(max-width:700px){
+      .nav-cards{grid-template-columns:1fr 1fr;}
+      .about-grid{grid-template-columns:1fr;}
+      .stats-bar{grid-template-columns:1fr 1fr;}
+      .topbar-brand{font-size:.6rem;}
+      .topbar-nav a{padding:0 .6rem;font-size:.58rem;}
     }
   </style>
 </head>
 <body>
 
-  <!-- TOPBAR -->
-  <nav class="topbar">
-    <a class="topbar-brand" href="#">☠ No Figure Left Behind</a>
-    <div class="topbar-nav">
-      <a href="#tracker">Tracker</a>
-      <a href="#units">Units</a>
-      <a href="#patrols">Patrols</a>
-      <a href="#detachments">Detachments</a>
+<nav class="topbar">
+  <a class="topbar-brand" href="https://tacowillj.github.io/nofigureleftbehind.github.io/#">☠ No Figure Left Behind</a>
+  <div class="topbar-nav">
+    <a href="https://tacowillj.github.io/nofigureleftbehind.github.io/#tracker">Tracker</a>
+    <a href="https://tacowillj.github.io/nofigureleftbehind.github.io/#primarchs">Primarchs</a>
+    <a href="https://tacowillj.github.io/nofigureleftbehind.github.io/#units">Units</a>
+    <a href="https://tacowillj.github.io/nofigureleftbehind.github.io/#patrols">Patrols</a>
+    <a href="https://tacowillj.github.io/nofigureleftbehind.github.io/#detachments">Detachments</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-rule hero-rule--top"></div>
+  <div class="bracket bracket--tl"></div><div class="bracket bracket--tr"></div>
+  <div class="bracket bracket--bl"></div><div class="bracket bracket--br"></div>
+  <div class="hero-inner">
+    <p class="hero-pretitle">The Primarch Project &mdash; Fan Reference Archive</p>
+    <span class="hero-skull">☠</span>
+    <h1>No Figure<br>Left Behind</h1>
+    <p class="hero-sub">Homebrew Rules for the Forgotten &amp; the Forsaken</p>
+    <div class="ornament-line"><span>✦</span></div>
+    <p class="hero-lore">
+      In the grim darkness of the far future, <strong>Games Workshop removes datasheets.</strong>
+      Units vanish between editions. Models gather dust. Armies are abandoned.<br><br>
+      This project refuses that fate. Every unit that ever had rules deserves to still have rules.
+      These are <strong>fan-made homebrew conversions</strong> — lovingly crafted, playtested,
+      and offered freely to the community.
+    </p>
+    <nav class="nav-cards">
+      <a class="nav-card" href="https://tacowillj.github.io/nofigureleftbehind.github.io/#tracker"><span class="nav-card-icon">📜</span><span class="nav-card-label">Database</span><span class="nav-card-title">Edition Tracker</span></a>
+      <a class="nav-card" href="https://tacowillj.github.io/nofigureleftbehind.github.io/#primarchs"><span class="nav-card-icon">👑</span><span class="nav-card-label">Primarchs</span><span class="nav-card-title">The XVIII</span></a>
+      <a class="nav-card" href="https://tacowillj.github.io/nofigureleftbehind.github.io/#units"><span class="nav-card-icon">⚔️</span><span class="nav-card-label">Datasheets</span><span class="nav-card-title">Homebrew Units</span></a>
+      <a class="nav-card" href="https://tacowillj.github.io/nofigureleftbehind.github.io/#patrols"><span class="nav-card-icon">🛡️</span><span class="nav-card-label">Army Lists</span><span class="nav-card-title">Combat Patrols</span></a>
+    </nav>
+  </div>
+  <div class="scroll-hint">▼</div>
+  <div class="hero-rule hero-rule--bot"></div>
+</header>
+
+<!-- STATS -->
+<section style="padding:0;border-top:1px solid var(--border);">
+  <div class="stats-bar">
+    <div class="stat-cell"><span class="stat-number">11</span><span class="stat-label">Editions Tracked</span></div>
+    <div class="stat-cell"><span class="stat-number">18</span><span class="stat-label">Primarchs</span></div>
+    <div class="stat-cell"><span class="stat-number">80+</span><span class="stat-label">Homebrew Units</span></div>
+    <div class="stat-cell"><span class="stat-number">0</span><span class="stat-label">Figures Left Behind</span></div>
+  </div>
+</section>
+
+<!-- TRACKER -->
+<section id="tracker">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-eyebrow">Cross-Edition Reference</span>
+      <h2 class="section-title">The No Figure Left Behind Tracker</h2>
+      <div class="section-rule"></div>
     </div>
-  </nav>
-
-  <!-- HERO -->
-  <header class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-rule hero-rule--top"></div>
-    <div class="bracket bracket--tl"></div>
-    <div class="bracket bracket--tr"></div>
-    <div class="bracket bracket--bl"></div>
-    <div class="bracket bracket--br"></div>
-
-    <div class="hero-inner">
-      <p class="hero-pretitle">The Primarch Project &mdash; Fan Reference Archive</p>
-      <span class="hero-skull">☠</span>
-      <h1>No Figure<br>Left Behind</h1>
-      <p class="hero-sub">Homebrew Rules for the Forgotten &amp; the Forsaken</p>
-
-      <div class="ornament-line"><span>✦</span></div>
-
-      <p class="hero-lore">
-        In the grim darkness of the far future, <strong>Games Workshop removes datasheets.</strong>
-        Units vanish between editions. Models gather dust. Armies are abandoned.<br><br>
-        This project refuses that fate. Every unit that ever had rules deserves to still have rules.
-        These are <strong>fan-made homebrew conversions</strong> — lovingly crafted,
-        playtested, and offered freely to the community.
-      </p>
-
-      <nav class="nav-cards">
-        <a class="nav-card" href="#tracker">
-          <span class="nav-card-icon">📜</span>
-          <span class="nav-card-label">Database</span>
-          <span class="nav-card-title">Edition Tracker</span>
-        </a>
-        <a class="nav-card" href="#units">
-          <span class="nav-card-icon">⚔️</span>
-          <span class="nav-card-label">Datasheets</span>
-          <span class="nav-card-title">Homebrew Units</span>
-        </a>
-        <a class="nav-card" href="#patrols">
-          <span class="nav-card-icon">🛡️</span>
-          <span class="nav-card-label">Army Lists</span>
-          <span class="nav-card-title">Combat Patrols</span>
-        </a>
-        <a class="nav-card" href="#detachments">
-          <span class="nav-card-icon">🏴</span>
-          <span class="nav-card-label">Rules</span>
-          <span class="nav-card-title">Detachments</span>
-        </a>
-      </nav>
-    </div>
-
-    <div class="scroll-hint">▼</div>
-    <div class="hero-rule hero-rule--bot"></div>
-  </header>
-
-  <!-- STATS -->
-  <section style="padding: 0; border-top: 1px solid var(--border);">
-    <div class="stats-bar">
-      <div class="stat-cell">
-        <span class="stat-number">11</span>
-        <span class="stat-label">Editions Tracked</span>
+    <div class="about-grid">
+      <div class="about-panel">
+        <p class="about-panel-title">What Is This?</p>
+        <p>A comprehensive spreadsheet tracking every Warhammer 40,000 unit across all eleven editions — from Rogue Trader to present day. Each unit is marked with its status in every edition it existed.</p>
+        <p>Where a unit has been removed, a homebrew datasheet card has been created to bring it back into 10th Edition rules, fully balanced against the current game.</p>
+        <p>This is a living document, maintained by fans for fans. No commercial interest. No affiliation with Games Workshop.</p>
       </div>
-      <div class="stat-cell">
-        <span class="stat-number">20+</span>
-        <span class="stat-label">Combat Patrols</span>
-      </div>
-      <div class="stat-cell">
-        <span class="stat-number">25+</span>
-        <span class="stat-label">Homebrew Units</span>
-      </div>
-      <div class="stat-cell">
-        <span class="stat-number">0</span>
-        <span class="stat-label">Figures Left Behind</span>
+      <div class="about-panel">
+        <p class="about-panel-title">Legend</p>
+        <ul class="status-list">
+          <li><span class="status-badge badge-yes">YES</span> Fully supported in this edition</li>
+          <li><span class="status-badge badge-leg">L</span> Legends — rules exist, not tournament legal</li>
+          <li><span class="status-badge badge-rem">X</span> Removed — no rules in this edition</li>
+          <li><span class="status-badge badge-hb">HB</span> Homebrew — fan-made card created here</li>
+          <li><span class="status-badge badge-unk">?</span> Uncertain — inferred, needs verification</li>
+          <li><span class="status-badge badge-unk">M</span> Merged — rolled into another datasheet</li>
+          <li><span class="status-badge badge-unk">NA</span> Rules existed but no model released</li>
+        </ul>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- TRACKER -->
-  <section id="tracker">
-    <div class="section-inner">
-      <div class="section-header">
-        <span class="section-eyebrow">Cross-Edition Reference</span>
-        <h2 class="section-title">The No Figure Left Behind Tracker</h2>
-        <div class="section-rule"></div>
-      </div>
-      <div class="about-grid">
-        <div class="about-panel">
-          <p class="about-panel-title">What Is This?</p>
-          <p>A comprehensive spreadsheet tracking every Warhammer 40,000 unit across all eleven editions — from Rogue Trader to present day. Each unit is marked with its status in every edition it existed.</p>
-          <p>Where a unit has been removed, a homebrew datasheet card has been created to bring it back into 10th Edition rules, fully balanced against the current game.</p>
-          <p>This is a living document, maintained by fans for fans. No commercial interest. No affiliation with Games Workshop.</p>
-        </div>
-        <div class="about-panel">
-          <p class="about-panel-title">Legend</p>
-          <ul class="status-list">
-            <li><span class="status-badge badge-yes">YES</span> Fully supported in this edition</li>
-            <li><span class="status-badge badge-leg">L</span> Legends — rules exist, not tournament legal</li>
-            <li><span class="status-badge badge-rem">X</span> Removed — no rules in this edition</li>
-            <li><span class="status-badge badge-hb">HB</span> Homebrew — fan-made card created here</li>
-            <li><span class="status-badge badge-unk">?</span> Uncertain — inferred, needs verification</li>
-            <li><span class="status-badge badge-unk">M</span> Merged — rolled into another datasheet</li>
-            <li><span class="status-badge badge-unk">NA</span> Rules existed but no model was released</li>
-          </ul>
-        </div>
-      </div>
+<!-- PRIMARCHS -->
+<section id="primarchs">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-eyebrow">The Sons of the Emperor</span>
+      <h2 class="section-title">Primarchs</h2>
+      <div class="section-rule"></div>
     </div>
-  </section>
-
-  <!-- HOMEBREW UNITS -->
-  <section id="units">
-    <div class="section-inner">
-      <div class="section-header">
-        <span class="section-eyebrow">Fan-Made Datasheets</span>
-        <h2 class="section-title">Homebrew Units</h2>
-        <div class="section-rule"></div>
-      </div>
-      <div class="content-grid">
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Mechanicum (HH)</span>
-          <span class="card-title">Magos &amp; Magos on Abeyant</span>
-          <span class="card-desc">Mid-tier HQ. Cybertheurgist + Battlesmith. Abeyant variant adds Fly and improved statline.</span>
-          <span class="card-tag">HH3e → 10e</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Mechanicum (HH)</span>
-          <span class="card-title">Tech-Priest</span>
-          <span class="card-desc">Budget Mechanicum character. Enables Sacred Algorithms. Repairs Battle-Automata.</span>
-          <span class="card-tag">HH3e → 10e</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Mechanicum (HH)</span>
-          <span class="card-title">Thallax Cohort</span>
-          <span class="card-desc">Cybernetic shock-troops with jump packs. Lightning gun armed. Cybernetic Resilience.</span>
-          <span class="card-tag">HH3e → 10e</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Mechanicum (HH)</span>
-          <span class="card-title">Ursarax Cohort</span>
-          <span class="card-desc">Heavy assault cybernetics. Paired lightning claws. Deep Strike. Cybernetic Onslaught.</span>
-          <span class="card-tag">HH3e → 10e</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Mechanicum (HH)</span>
-          <span class="card-title">Vorax Attack-Automata</span>
-          <span class="card-desc">Light predator scout robots. Scouts 9&quot;, Stealth, Hunter-Killer Subroutine.</span>
-          <span class="card-tag">HH3e → 10e</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Mechanicum (HH)</span>
-          <span class="card-title">Scyllax Guardian-Automata</span>
-          <span class="card-desc">Escort automata. Guardian Protocols protects nearby Tech-Priests from ranged fire.</span>
-          <span class="card-tag">HH3e → 10e</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Mechanicum (HH)</span>
-          <span class="card-title">Myrmidon Secutor Host</span>
-          <span class="card-desc">Elite cybernetic melee brotherhood. Power axes, WS 2+. Killing Doctrine.</span>
-          <span class="card-tag">HH3e → 10e</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Mechanicum (HH)</span>
-          <span class="card-title">Myrmidon Destructor Host</span>
-          <span class="card-desc">Heavy-weapons cyborg brotherhood. Split-fire Firing Protocols. Conversion beamers.</span>
-          <span class="card-tag">HH3e → 10e</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Mechanicum (HH)</span>
-          <span class="card-title">Thanatar Siege-Automata</span>
-          <span class="card-desc">Heaviest Battle-Automata. Hellex plasma mortar. Calix and Cynis variants included.</span>
-          <span class="card-tag">HH3e → 10e</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Mechanicum (HH)</span>
-          <span class="card-title">Ordinatus Ulator, Sagittar &amp; Aktaeus</span>
-          <span class="card-desc">Lord of War superheavies. Sonic destruction, beam cannon, and siege-drill variants.</span>
-          <span class="card-tag">HH3e → 10e</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Aeldari — Ulthwé</span>
-          <span class="card-title">Black Guardian Defenders</span>
-          <span class="card-desc">Ulthwé's standing army. BS 3+ reflects professional training. Eye of Terror 2003 lineage.</span>
-          <span class="card-tag">3rd Ed → 10e</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Aeldari — Ulthwé</span>
-          <span class="card-title">Black Guardian Storm Squad</span>
-          <span class="card-desc">Webway assault veterans. WS 3+ melee specialists. Webway Veterans ability.</span>
-          <span class="card-tag">3rd Ed → 10e</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Astra Militarum</span>
-          <span class="card-title">Steel Legion Infantry Platoon</span>
-          <span class="card-desc">Full mechanised platoon as a single unit. Command, Infantry squads, Chimeras.</span>
-          <span class="card-tag">3rd Ed → 10e</span>
-        </a>
-
-        <a class="content-card card-wip" href="#">
-          <span class="card-faction">More Coming</span>
-          <span class="card-title">Additional Units In Progress</span>
-          <span class="card-desc">Primarchs, 7th/8th/9th edition losses, and more factions actively being worked on.</span>
-          <span class="card-tag">In Progress</span>
-        </a>
-
-      </div>
+    <div class="content-grid">
+      <a class="content-card" href="https://drive.google.com/file/d/1TrCEJlFkawiw-_egjJSHG8NsEkrBWy26/view" target="_blank"><span class="card-faction">I Legion — Dark Angels</span><span class="card-title">Lion El'Johnson</span><span class="card-desc">The Primarch of the First, returned from the rock. Blade of Caliban and the Lion Sword.</span><span class="card-tag">Homebrew 10e</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1tgWG89Sp-1JnpyGmagCS6vaQU67DmADJ/view" target="_blank"><span class="card-faction">XX Legion — Alpha Legion</span><span class="card-title">Alpharius</span><span class="card-desc">First amongst equals. Identity uncertain. Many of the heads of the hydra.</span><span class="card-tag">Homebrew 10e</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1USgw5z0uHEkcidBPCAUayj2rkDAwf-fk/view" target="_blank"><span class="card-faction">XVI Legion — Sons of Horus</span><span class="card-title">Horus Lupercal</span><span class="card-desc">The Warmaster. The Archtraitor. The favoured son who chose damnation.</span><span class="card-tag">Homebrew 10e</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1UfVPpGL0O71Meecqkjr5WolzPJ9DvoAK/view" target="_blank"><span class="card-faction">V Legion — White Scars</span><span class="card-title">Jaghatai Khan</span><span class="card-desc">The Warhawk of Chogoris. Speed incarnate. Rode the webway to unknown fate.</span><span class="card-tag">Homebrew 10e</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1FnvzaG0bmudqUCavBxoiJvwuYcHgDp2_/view" target="_blank"><span class="card-faction">VI Legion — Space Wolves</span><span class="card-title">Leman Russ</span><span class="card-desc">The Wolf King. The Executioner. Vanished into the Eye of Terror at the final battle.</span><span class="card-tag">Homebrew 10e</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/12MWAT71QpX04VKqwyea6_hMqwyS1I8T8/view" target="_blank"><span class="card-faction">X Legion — Iron Hands</span><span class="card-title">Ferrus Manus</span><span class="card-desc">The Gorgon. First to fall at Isstvan V. The Iron Hands mourn him still.</span><span class="card-tag">Homebrew 10e</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1NWRonN1xv_1xG-hY9vdBEjG1Gite6rRd/view" target="_blank"><span class="card-faction">IX Legion — Blood Angels</span><span class="card-title">Sanguinius</span><span class="card-desc">The Angel. The Great Angel. Slain by Horus at the siege of Terra. His sons carry his curse.</span><span class="card-tag">Homebrew 10e</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1DM2uey9_e1FL8nsHG-7aeT0sUA0Cv1Ab/view" target="_blank"><span class="card-faction">XVII Legion — Word Bearers</span><span class="card-title">Lorgar Aurelian</span><span class="card-desc">The Urizen. Faithful above all others. Whose faith led to damnation and civil war.</span><span class="card-tag">Homebrew 10e</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1sxfIAultBzAB_XKTj5kKWuF8jpYgcilY/view" target="_blank"><span class="card-faction">XVIII Legion — Salamanders</span><span class="card-title">Vulkan</span><span class="card-desc">The Lord of Drakes. The Perpetual. He who returned again and again from death.</span><span class="card-tag">Homebrew 10e</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1oA-rVYpVuP26bZS3hC5PS74XMZmN4Njj/view" target="_blank"><span class="card-faction">XIX Legion — Raven Guard</span><span class="card-title">Corvus Corax</span><span class="card-desc">The Shadowed Lord. Ravenlord. Survivor of Isstvan V, hunter in the dark.</span><span class="card-tag">Homebrew 10e</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1HVLyd7d9hCtRKB2IcAKZkSuCuIlSV9hp/view" target="_blank"><span class="card-faction">XV Legion — Thousand Sons</span><span class="card-title">Magnus the Red</span><span class="card-desc">The Crimson King. The Sorcerer. His good intentions broke the Webway and doomed his Legion.</span><span class="card-tag">Homebrew 10e</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1lWW9JX52prDzkm26mlEnChQmlDVYtEam/view" target="_blank"><span class="card-faction">XIV Legion — Death Guard</span><span class="card-title">Mortarion</span><span class="card-desc">The Death Lord. The Pale King. Surrendered to Nurgle in the warp. Plague made manifest.</span><span class="card-tag">Homebrew 10e</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/11AWpkanOcBPsmZbrs-jAvkC3p57vFDoM/view" target="_blank"><span class="card-faction">VIII Legion — Night Lords</span><span class="card-title">Konrad Curze</span><span class="card-desc">The Night Haunter. The King of Terrors. Allowed his own assassination to prove a point.</span><span class="card-tag">Homebrew 10e</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1Q7oJv4wIqSO_F-HOZ_E0h_EiPfu6onoL/view" target="_blank"><span class="card-faction">III Legion — Emperor's Children</span><span class="card-title">Fulgrim</span><span class="card-desc">The Phoenician. The Perfectionist. Consumed by a daemon blade and Slaanesh's whispers.</span><span class="card-tag">Homebrew 10e</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1DaXezlVIoWlc6HRoXZ30F0vdempw8AG6/view" target="_blank"><span class="card-faction">XII Legion — World Eaters</span><span class="card-title">Angron</span><span class="card-desc">The Red Angel. The Unbound. The Nails drove him to madness. A daemon prince of Khorne.</span><span class="card-tag">Homebrew 10e</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1-htqcC23ku9FbspQB8kVLt8sxZxKOYyH/view" target="_blank"><span class="card-faction">IV Legion — Iron Warriors</span><span class="card-title">Perturabo</span><span class="card-desc">The Lord of Iron. Siege master without peer. His resentment festered until it consumed him.</span><span class="card-tag">Homebrew 10e</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1_Nb-WCtvANy61So6QAHypFkPT5z8OjAf/view" target="_blank"><span class="card-faction">VII Legion — Imperial Fists</span><span class="card-title">Rogal Dorn</span><span class="card-desc">The Praetorian. Defender of Terra. His fists closed around the fate of the Imperium.</span><span class="card-tag">Homebrew 10e</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1NZ9ztcs0rnsdbZwtMJhBSMYwMoi14eXx/view" target="_blank"><span class="card-faction">XIII Legion — Ultramarines</span><span class="card-title">Roboute Guilliman</span><span class="card-desc">The Avenging Son. Lord Commander of the Imperium. Returned. The Codex made flesh.</span><span class="card-tag">Homebrew 10e</span></a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- COMBAT PATROLS -->
-  <section id="patrols">
-    <div class="section-inner">
-      <div class="section-header">
-        <span class="section-eyebrow">Homebrew Army Lists</span>
-        <h2 class="section-title">Combat Patrols</h2>
-        <div class="section-rule"></div>
-      </div>
-      <div class="content-grid">
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Aeldari — Ulthwé</span>
-          <span class="card-title">The Damned</span>
-          <span class="card-desc">Farseer + Warlock + Black Guardians + Dire Avengers + Wave Serpent. 495 pts.</span>
-          <span class="card-tag">Homebrew</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Aeldari — Iyanden</span>
-          <span class="card-title">Wraithhost</span>
-          <span class="card-desc">Wraithguard + Wraithblades + Wraithlord + Spiritseer. Ghosts of Iyanden detachment.</span>
-          <span class="card-tag">Homebrew</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Aeldari — Saim-Hann</span>
-          <span class="card-title">Wild Hunt</span>
-          <span class="card-desc">All-jetbike list. Skyrunners + Windriders + Vyper. Advance and Charge focus.</span>
-          <span class="card-tag">Homebrew</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Aeldari — Ynnari</span>
-          <span class="card-title">Whisper of Ynnead</span>
-          <span class="card-desc">Yvraine + Visarch + Wraithblades + Guardians. Strength from Death detachment. 440 pts.</span>
-          <span class="card-tag">Homebrew</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Aeldari — Alaitoc</span>
-          <span class="card-title">Hidden Hunt</span>
-          <span class="card-desc">Illic Nightspear + Pathfinders + Rangers + Wave Serpent. Stalking Patrol detachment.</span>
-          <span class="card-tag">Homebrew</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Aeldari — Biel-Tan</span>
-          <span class="card-title">Swordwind Descends</span>
-          <span class="card-desc">Aspect Warriors + Wave Serpent. Children of Khaine detachment. Re-roll Wound 1s.</span>
-          <span class="card-tag">Homebrew</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Astra Militarum — Steel Legion</span>
-          <span class="card-title">The Iron Tide</span>
-          <span class="card-desc">Full mechanised Steel Legion platoon. Chimera-mounted assault. The Iron Tide of Armageddon.</span>
-          <span class="card-tag">Homebrew</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Astra Militarum — Attilan</span>
-          <span class="card-title">Steppe Khan's Hunt</span>
-          <span class="card-desc">All-cavalry. Mogul Kamir + Rough Riders + Death Riders. Stampede detachment. 525 pts.</span>
-          <span class="card-tag">Homebrew</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Astra Militarum — Catachan</span>
-          <span class="card-title">Devil's Claw</span>
-          <span class="card-desc">Catachan Commander + Jungle Fighters + Sly Marbo + Sentinels + Hellhound. 470 pts.</span>
-          <span class="card-tag">Homebrew</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Mechanicum</span>
-          <span class="card-title">Sacred Maniple &amp; Heretek Maniple</span>
-          <span class="card-desc">Taghmata Omnissiah and Dark Mechanicum. Brings HH Mechanicum to 10th Edition patrol scale.</span>
-          <span class="card-tag">Homebrew</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Space Marines — Astral Claws</span>
-          <span class="card-title">Badab War Patrols</span>
-          <span class="card-desc">Shield of Badab, Tyrant's Spear, Valthex's Forge — three distinct Astral Claws lists.</span>
-          <span class="card-tag">Homebrew</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Orks</span>
-          <span class="card-title">Wazdakka's Roadkillaz &amp; Da Yellaboyz</span>
-          <span class="card-desc">Evil Sunz speed freeks and Bad Moons Mek mob. Full Waaagh! specialist patrols.</span>
-          <span class="card-tag">Homebrew</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">T'au — Farsight Enclaves</span>
-          <span class="card-title">The Eight</span>
-          <span class="card-desc">Commander Farsight and his legendary brotherhood of Crisis Suit veterans.</span>
-          <span class="card-tag">Homebrew</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Chaos</span>
-          <span class="card-title">The Hour of Manifestation</span>
-          <span class="card-desc">Legion of the Damned combat patrol. Manifestation detachment rules.</span>
-          <span class="card-tag">Homebrew</span>
-        </a>
-
-      </div>
+<!-- HOMEBREW UNITS -->
+<section id="units">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-eyebrow">Fan-Made Datasheets</span>
+      <h2 class="section-title">Homebrew Units</h2>
+      <div class="section-rule"></div>
     </div>
-  </section>
 
-  <!-- DETACHMENTS -->
-  <section id="detachments">
-    <div class="section-inner">
-      <div class="section-header">
-        <span class="section-eyebrow">Faction Rules</span>
-        <h2 class="section-title">Detachments</h2>
-        <div class="section-rule"></div>
-      </div>
-      <div class="content-grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));">
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Aeldari</span>
-          <span class="card-title">Aeldari Detachments</span>
-          <span class="card-desc">Craftworld-specific rules — Ulthwé, Saim-Hann, Iyanden, Biel-Tan, Alaitoc, and Ynnari.</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Astra Militarum</span>
-          <span class="card-title">Astra Militarum Detachments</span>
-          <span class="card-desc">Regiment rules — Steel Legion, Attilan, Catachan, Tallarn, and more.</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Mechanicum (HH)</span>
-          <span class="card-title">Mechanicum Detachments</span>
-          <span class="card-desc">Taghmata Omnissiah, Cybernetica Cohort, Dark Mechanicum. Full 10th Ed conversions.</span>
-        </a>
-
-        <a class="content-card" href="#">
-          <span class="card-faction">Space Marines</span>
-          <span class="card-title">Space Marines Detachments</span>
-          <span class="card-desc">Chapter rules including Astral Claws and Badab War successor chapters.</span>
-        </a>
-
-      </div>
+    <!-- 1st Edition -->
+    <h3 style="font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);">1st Edition (Rogue Trader)</h3>
+    <div class="content-grid" style="margin-bottom:2rem;">
+      <a class="content-card" href="https://drive.google.com/file/d/1WmKb2RuDxf_2iAoc5LC3Hkbe0Ul6kFCe/view" target="_blank">
+        <span class="card-faction">Adeptus Mechanicus</span><span class="card-title">Cataphract Battle Robot</span>
+        <span class="card-desc">The original Rogue Trader battle robot, converted to 10th Edition rules.</span><span class="card-tag">1st Ed → 10e</span>
+      </a>
     </div>
-  </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <span class="footer-skull">☠</span>
-      <p class="footer-title">No Figure Left Behind — The Primarch Project</p>
-      <p class="footer-text">
-        A fan-made archive of homebrew Warhammer 40,000 rules for units removed, lost to editions past,
-        or never given 10th Edition support. Made with love by collectors who refuse to let their
-        miniatures gather dust.
-      </p>
-      <p class="footer-disclaimer">
-        THIS PROJECT IS NOT AFFILIATED WITH OR ENDORSED BY GAMES WORKSHOP LTD.<br>
-        WARHAMMER 40,000 IS A TRADEMARK OF GAMES WORKSHOP LTD.<br>
-        ALL HOMEBREW CONTENT IS FAN-MADE AND OFFERED FREELY FOR NON-COMMERCIAL USE.
-      </p>
+    <!-- 3rd Edition -->
+    <h3 style="font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);">3rd Edition</h3>
+    <div class="content-grid" style="margin-bottom:2rem;">
+      <a class="content-card" href="https://drive.google.com/file/d/1TLTd1SwqVOaEn414-4LIalZCXbv0WwEs/view" target="_blank">
+        <span class="card-faction">Space Marines</span><span class="card-title">Sergeant Centurius</span>
+        <span class="card-desc">Legendary veteran sergeant with unique Chapter Trait interactions.</span><span class="card-tag">3rd Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1I2VdPlu7wj-H94PYNga7Z-id8_d3HZXg/view" target="_blank">
+        <span class="card-faction">Astra Militarum</span><span class="card-title">Last Chancers</span>
+        <span class="card-desc">Colonel Schaeffer's penal legion. Expendable. Dangerous. Surprisingly effective.</span><span class="card-tag">3rd Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1b-3FkEOM-31sbEs-AUAngDLfmt1XtT09/view" target="_blank">
+        <span class="card-faction">Astra Militarum</span><span class="card-title">Colonel Schaeffer</span>
+        <span class="card-desc">Commander of the Last Chancers. Ruthless disciplinarian. One-shot unit.</span><span class="card-tag">3rd Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/18y8zv4YuLpeWF3yYOKUCitysyzL6iQj3/view" target="_blank">
+        <span class="card-faction">Astra Militarum</span><span class="card-title">Imperial Guard Rough Riders</span>
+        <span class="card-desc">Cavalry charge specialists. Hunting lances on the first charge.</span><span class="card-tag">3rd Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1wUe4DvBsO3m7bGY3ll3SmCUgezdtNFnr/view" target="_blank">
+        <span class="card-faction">Astra Militarum — Attilan</span><span class="card-title">Mogul Kamir</span>
+        <span class="card-desc">Attilan Rough Rider hero. Death or Glory charge rule.</span><span class="card-tag">3rd Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1Dv1yjCq9ZSvncl5ij3CMxKhdXI0hOpJX/view" target="_blank">
+        <span class="card-faction">Astra Militarum — Tallarn</span><span class="card-title">Captain Al'Rahem</span>
+        <span class="card-desc">Tallarn Desert Raider commander with Outflank special rule.</span><span class="card-tag">3rd Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1mPX_m7BCYSmYSynOnDQ50P_NCw0P7Zl4/view" target="_blank">
+        <span class="card-faction">Astra Militarum — Valhalla</span><span class="card-title">Captain Chenkov</span>
+        <span class="card-desc">Valhallan commander. Send in the Next Wave — endless reinforcements rule.</span><span class="card-tag">3rd Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1PKdMap6qauuPlbv5by02g-eKzJmoVdpZ/view" target="_blank">
+        <span class="card-faction">Astra Militarum</span><span class="card-title">Penal Legion Squad</span>
+        <span class="card-desc">Desperate criminals pressed into service. Random abilities determined at deployment.</span><span class="card-tag">3rd Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1q3BL7ERmaFx8KyvqmPGY_l3XxQ6uB76M/view" target="_blank">
+        <span class="card-faction">Astra Militarum</span><span class="card-title">Lieutenant Tarentus</span>
+        <span class="card-desc">Specialist officer with unique command abilities for mechanised forces.</span><span class="card-tag">3rd Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/16HSqpZ1bGL7r7SP7-jsoknF3sESbFwwq/view" target="_blank">
+        <span class="card-faction">Astra Militarum</span><span class="card-title">Infantry Platoon</span>
+        <span class="card-desc">The classic Imperial Guard platoon structure — Command, Infantry squads, Heavy Weapons.</span><span class="card-tag">3rd Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1vN51mFhpU8G0igvCjYAJ62MRtgHqP-9g/view" target="_blank">
+        <span class="card-faction">Astra Militarum</span><span class="card-title">Sergeant Bastonne</span>
+        <span class="card-desc">Cadian veteran sergeant with Shoot and Shoot Again.</span><span class="card-tag">3rd Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1-qS0dTIQ_J5q5v72M6-YsdKIN-BLa3Jl/view" target="_blank">
+        <span class="card-faction">Space Marines — Ultramarines</span><span class="card-title">Ortan Cassius</span>
+        <span class="card-desc">Master of Sanctity. Tyranid hunter. Ancient veteran Chaplain.</span><span class="card-tag">3rd Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1R_z0LJ5VqxWVAXrqHnCKPrV1tDE8OXN6/view" target="_blank">
+        <span class="card-faction">Space Marines — Ultramarines</span><span class="card-title">Antaro Chronus</span>
+        <span class="card-desc">The Spear of Macragge. Legendary tank commander. Predator Annihilator ace.</span><span class="card-tag">3rd Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1srUqaazcJEABlAdhH4IkygZ0d-XnYc7p/view" target="_blank">
+        <span class="card-faction">Space Marines — Blood Angels</span><span class="card-title">Captain Karlaen</span>
+        <span class="card-desc">Shield Eternal. Commander of the 1st Company. Terminator assault specialist.</span><span class="card-tag">3rd Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1xNdk4Tp9yprok5fGH8Q9vdI94HbZwp3X/view" target="_blank">
+        <span class="card-faction">Drukhari</span><span class="card-title">Baron Sathonyx</span>
+        <span class="card-desc">Hellion lord of the sky. Gives Hellions the Skilled Rider and Hit &amp; Run ability.</span><span class="card-tag">3rd Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1DFWUyVfHW4eFe1iybZ8cUWzzgDBd6fnB/view" target="_blank">
+        <span class="card-faction">Drukhari</span><span class="card-title">Asdrubael Vect</span>
+        <span class="card-desc">Supreme Overlord of Commorragh. The living symbol of Dark Eldar power.</span><span class="card-tag">3rd Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1Wy4xCbqWIkiAgvRPfZ6y0pSxwaqeusm4/view" target="_blank">
+        <span class="card-faction">Drukhari</span><span class="card-title">Vect on the Dais of Destruction</span>
+        <span class="card-desc">Vect's personal superheavy skimmer. A rolling fortress of Dark Eldar excess.</span><span class="card-tag">3rd Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1PrjmwP75kkgsYHfeP3b9_iQ4QjufoPLC/view" target="_blank">
+        <span class="card-faction">Drukhari</span><span class="card-title">Kheradruakh the Decapitator</span>
+        <span class="card-desc">The Decapitator. Mandrake lord who collects the heads of the mighty.</span><span class="card-tag">3rd Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/12UegcrQ1Fm_CcTUL6AJtZ4HGO0AacPPe/view" target="_blank">
+        <span class="card-faction">Drukhari</span><span class="card-title">Duke Sliscus</span>
+        <span class="card-desc">The Serpent. Sky Corsair captain. Archon-level hero with unique Kabal traits.</span><span class="card-tag">3rd Ed → 10e</span>
+      </a>
     </div>
-  </footer>
+
+    <!-- 7th Edition -->
+    <h3 style="font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);">7th Edition</h3>
+    <div class="content-grid" style="margin-bottom:2rem;">
+      <a class="content-card" href="https://drive.google.com/file/d/1LoGFNAWxGANjjpeg_Of5HBmfhxZTpKy1/view" target="_blank">
+        <span class="card-faction">Space Marines — Carcharodons</span><span class="card-title">Tyberos the Red Wake</span>
+        <span class="card-desc">The Hunger and the Thirst. Chapter Master with crushing claw weapons.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/146_6F7RVFD3AVd_oJCMUn4FX55VpEu_s/view" target="_blank">
+        <span class="card-faction">Space Marines — Raptors</span><span class="card-title">Lias Issodon</span>
+        <span class="card-desc">Chapter Master of the Raptors. Master of ambush and guerilla warfare.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1m4VXKaOwjkf3aZXMO35pxwd0NpNvV8Kw/view" target="_blank">
+        <span class="card-faction">Space Marines — Minotaurs</span><span class="card-title">Lord Asterion Moloc</span>
+        <span class="card-desc">Chapter Master of the Minotaurs. Brutal siege warrior. Chapter Tactics: brutality.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1pkLnDX6zTuaRv2g8N0HLD1Wk5M03IHOh/view" target="_blank">
+        <span class="card-faction">Space Marines — Minotaurs</span><span class="card-title">Hecaton Aiakos</span>
+        <span class="card-desc">Contemptor Dreadnought Champion of the Minotaurs. Warden of the Labyrinth.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1U3FZha6W1IjWyKSR1dyy7RPqhRQw4ITt/view" target="_blank">
+        <span class="card-faction">Space Marines — Lamenters</span><span class="card-title">Chaplain Ivanus Enkomi</span>
+        <span class="card-desc">The Lamenters' Chaplain. Keeper of the Chapter's sorrows. Inspiring orator.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1ts_gFgHvyYwQtQjEXH-DCgBsuR_2-i2f/view" target="_blank">
+        <span class="card-faction">Space Marines — Executioners</span><span class="card-title">High Chaplain Thulsa Kane</span>
+        <span class="card-desc">The Voice of the Ancestors. Executioners Chaplain with unique death rites.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1fZi5rFOMqceKHTALkVDIQ8nNS1AOfXuF/view" target="_blank">
+        <span class="card-faction">Space Marines — Red Scorpions</span><span class="card-title">Harath Shen</span>
+        <span class="card-desc">Chief Apothecary of the Red Scorpions. Master healer and genetic purist.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1YrJXtCc3aYAXKyYvlKCeM34bhrKnHl8o/view" target="_blank">
+        <span class="card-faction">Space Marines — Red Scorpions</span><span class="card-title">Captain Pellas Mirsan</span>
+        <span class="card-desc">Captain of the Red Scorpions. Purist warrior with strong Chapter traditions.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/14ByRVpWk1xWhCQovdsy5SN5RZVj93OwG/view" target="_blank">
+        <span class="card-faction">Space Marines — Red Scorpions</span><span class="card-title">Brayarth Ashmantle</span>
+        <span class="card-desc">Ancient Ironclad Dreadnought of the Red Scorpions. Awakened only for the direst battles.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1tpLnWs63eVc891Ns7o9tT6W02A3rU8j9/view" target="_blank">
+        <span class="card-faction">Space Marines — Lamenters</span><span class="card-title">Malakim Phoros</span>
+        <span class="card-desc">Chapter Master of the Lamenters. Cursed by the Black Rage. Bearer of the Wrath Unforgiven.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1PHiqP6O3QpBYG_4rJhydieDPHHEEQoo3/view" target="_blank">
+        <span class="card-faction">Space Marines — Star Phantoms</span><span class="card-title">Sirae Karagon</span>
+        <span class="card-desc">Chapter Master of the Star Phantoms. Veteran of the Badab War.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1cd9_YXonkGza2WmVUao_UaRy1w85LuCS/view" target="_blank">
+        <span class="card-faction">Space Marines — Astral Claws</span><span class="card-title">Casan Sabius</span>
+        <span class="card-desc">Astral Claws Captain. Tyrant's loyal enforcer during the Badab War.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1fXrV3SMJVr0ORzfkWG7ohRJ-IrsSEVZR/view" target="_blank">
+        <span class="card-faction">Space Marines — Astral Claws</span><span class="card-title">Captain Corien Sumatris</span>
+        <span class="card-desc">The Hurricane. Astral Claws Captain. Lightning-fast assault specialist.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1ue7zTdHZvtxGhzcXSbJVhOU3TnN6Rk_q/view" target="_blank">
+        <span class="card-faction">Space Marines — Astral Claws</span><span class="card-title">Arch-Centurion Carnac Commodus</span>
+        <span class="card-desc">Astral Claws veteran. Master of siege warfare and fortification.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1WPoTZW7fgLClHGVZNPWvN_CSynCt14KG/view" target="_blank">
+        <span class="card-faction">Space Marines — Astral Claws</span><span class="card-title">Armenneus Valthex</span>
+        <span class="card-desc">The Corpsemaster. Astral Claws Techmarine, master of the Pale Spear.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1ASzMV5oCUyLohNVETOB4_Ccmrk53aWRy/view" target="_blank">
+        <span class="card-faction">Space Marines — Astral Claws</span><span class="card-title">Lufgt Huron</span>
+        <span class="card-desc">The Tyrant of Badab. Chapter Master turned renegade. Chaos Warlord in waiting.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1A9wtD-xzBrqs8xGakgYAQcqfrMNLdnpJ/view" target="_blank">
+        <span class="card-faction">Space Marines — Carcharadons</span><span class="card-title">Captain Tarnus Vale</span>
+        <span class="card-desc">Carcharodons character. The Pale Nomads' blade in the darkness.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1Es8mV2S9cOMJmZ7Qigg4VFFZBSTnvyBD/view" target="_blank">
+        <span class="card-faction">Space Marines — Red Corsairs</span><span class="card-title">Captain Zhrukhal Androcles</span>
+        <span class="card-desc">Red Corsairs raider captain. Pirate chieftain of the Maelstrom.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1w4g6h2EZ_SAbaPEdSC5AxhKlTl_anhq5/view" target="_blank">
+        <span class="card-faction">Space Marines — Executioners</span><span class="card-title">Captain Silas Alberec</span>
+        <span class="card-desc">Executioners Captain. Master of the Final Rites. Merciful in victory, brutal in war.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1M9YqAaB9vw60YzybWY3kie7YP4otukZL/view" target="_blank">
+        <span class="card-faction">Space Marines — Marines Errant</span><span class="card-title">Ahazra Redth</span>
+        <span class="card-desc">Chief Librarian of the Marines Errant. Master of the Forbidden Lore.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1a3tVI1W4VkDNs1iVK4tQYPOPkePMre4t/view" target="_blank">
+        <span class="card-faction">Space Marines — Howling Griffons</span><span class="card-title">Lieutenant Commander Anton Narvaez</span>
+        <span class="card-desc">Howling Griffons officer. Veteran of the Badab War's loyalist side.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1IrFNEUsPeJNV6HkgrdxmTOugXupljXfJ/view" target="_blank">
+        <span class="card-faction">Space Marines — Red Scorpions</span><span class="card-title">Knight-Captain Elam Courbray</span>
+        <span class="card-desc">Red Scorpions character. Honoured warrior of the Chapter's elite.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1HX68HMcC4vtgJBJKI9yvAIzYM5KMnkli/view" target="_blank">
+        <span class="card-faction">Space Marines — Iron Hands</span><span class="card-title">Iron Father Vaylund Cal</span>
+        <span class="card-desc">Iron Hands Iron Father. Master of the Clan Company. Iron without, iron within.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1lHBX1d3L1-VNTgdENolSl1MYgWqCubjw/view" target="_blank">
+        <span class="card-faction">Space Marines — Astral Claws</span><span class="card-title">Captain Mordaci Blaylock</span>
+        <span class="card-desc">Astral Claws Captain. Grim enforcer of the Tyrant's will during the Badab War.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1F85aPSqPMuhJooRA3qN96rLXYorau0OU/view" target="_blank">
+        <span class="card-faction">Space Marines — Blood Ravens</span><span class="card-title">Gabriel Angelos</span>
+        <span class="card-desc">Chapter Master of the Blood Ravens. Bearer of the God-Splitter. Dawn of War legend.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/15srO4EqwnydYm4cW2smFTyv5sgI4vYD1/view" target="_blank">
+        <span class="card-faction">Space Marines — Ultramarines</span><span class="card-title">Amallyn Shadowguide</span>
+        <span class="card-desc">Aeldari Ranger bound to the Ultramarines. Reluctant ally, deadly scout.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1PVdTi69YOMwYi7WR9k8CLe8r0Wu59fap/view" target="_blank">
+        <span class="card-faction">Space Marines — Red Scorpions</span><span class="card-title">Sevrin Loth</span>
+        <span class="card-desc">Chief Librarian of the Red Scorpions. Psyker of exceptional power and purity.</span><span class="card-tag">7th Ed → 10e</span>
+      </a>
+    </div>
+
+    <!-- 8th Edition -->
+    <h3 style="font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);">8th Edition</h3>
+    <div class="content-grid" style="margin-bottom:2rem;">
+      <a class="content-card" href="https://drive.google.com/file/d/1B0FXxki0pM1RH92YbclV6df6dD612oc5/view" target="_blank">
+        <span class="card-faction">Space Marines — Space Wolves</span><span class="card-title">Lone Wolf</span>
+        <span class="card-desc">A warrior cursed to seek death in battle. Hunts alone. Near impossible to kill.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1ReEYC4A3IvAUT0vbQTD_Dz30vvNBlu0V/view" target="_blank">
+        <span class="card-faction">Space Marines — Space Wolves</span><span class="card-title">Njal Stormcaller (Pre-Rubicon, Terminator)</span>
+        <span class="card-desc">The greatest Rune Priest of the Space Wolves. Storm caller. Terminator variant.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1sTa_zYHWI1cADFAC5o3-F6o0bpxEUw1s/view" target="_blank">
+        <span class="card-faction">Space Marines — Space Wolves</span><span class="card-title">Njal Stormcaller (Pre-Rubicon, Power Armour)</span>
+        <span class="card-desc">The greatest Rune Priest of the Space Wolves. Power armour variant for the classic model.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1LvizMOjbEoYonrtJkM8Q3gzSrajsVHrc/view" target="_blank">
+        <span class="card-faction">Astra Militarum</span><span class="card-title">Wyrdvane Psykers</span>
+        <span class="card-desc">Sanctioned psykers pooling their power. Greater together than apart.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1jMzaOlcqDWK1KpRWlavia5wD-vfB7S4l/view" target="_blank">
+        <span class="card-faction">Adepta Sororitas</span><span class="card-title">Saint Praxedes</span>
+        <span class="card-desc">Living Saint of the Order of Our Martyred Lady. Miraculous healer and fighter.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1AKPe8WUtNBoiF-AA8OdYJuxJhFj4qqrw/view" target="_blank">
+        <span class="card-faction">Astra Militarum</span><span class="card-title">Commissar Severina Raine</span>
+        <span class="card-desc">Commissar of the Antari Rifles. Inspiring leader. Subject of the Black Library novels.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1bkCWiPHn2zCjx9g0ZQJ7bfaAaPCf8bZB/view" target="_blank">
+        <span class="card-faction">Astra Militarum</span><span class="card-title">Colour Sergeant Kell</span>
+        <span class="card-desc">Creed's devoted standard bearer. The voice of Ursarkar Creed on the battlefield.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1IbydFIptchfnOhGfjQAWLwDY79A0bdOg/view" target="_blank">
+        <span class="card-faction">Space Marines — Blood Angels</span><span class="card-title">Tycho the Lost</span>
+        <span class="card-desc">Captain Tycho consumed by the Black Rage. His death mask hides the ruin beneath.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/19XW3c1LlXSD_o8mVuIVfX16ma-5XhpFa/view" target="_blank">
+        <span class="card-faction">Adepta Sororitas</span><span class="card-title">Arch-Confessor Kyrinov</span>
+        <span class="card-desc">Zealous confessor who inspires fanatical devotion in nearby Sisters.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1jOi-gDNN2553BjKb-fchmqpolPXqEXnm/view" target="_blank">
+        <span class="card-faction">Astra Militarum</span><span class="card-title">Knight Commander Pask</span>
+        <span class="card-desc">The greatest tank commander in the Imperium. Leman Russ ace. Cadian armoured legend.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1c-lbO6EqjNXGjllZmDVNqeG8J2SrT8W7/view" target="_blank">
+        <span class="card-faction">Adepta Sororitas</span><span class="card-title">Uriah Jacobus</span>
+        <span class="card-desc">Protector of the Faith. Battle Confessor with Rosarius and shotgun. Inspiring presence.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1yifw54-ZdqWZo0YToMs9BtISggOrTwMp/view" target="_blank">
+        <span class="card-faction">T'au</span><span class="card-title">Aun'shi</span>
+        <span class="card-desc">Ethereal Supreme warrior. Blade Master. A rarity — an Ethereal who fights.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1h7UJf7uMek3TS4dx4fFj-F9NYLGP7FAK/view" target="_blank">
+        <span class="card-faction">T'au</span><span class="card-title">XV107 R'varna Battlesuit</span>
+        <span class="card-desc">Experimental heavy battlesuit with pulsed burster cannon. Unique energy barrier.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1WFJnlwHX2moK_uZRmijqi8ypLlwqW2OU/view" target="_blank">
+        <span class="card-faction">T'au</span><span class="card-title">XV109 Y'vahra Battlesuit</span>
+        <span class="card-desc">Prototype assault battlesuit with phased plasma flamer. Jump-capable heavy hitter.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1mrRf4895xSPAG1lzMXOqDGGp2JLS1FyQ/view" target="_blank">
+        <span class="card-faction">T'au — Farsight Enclaves</span><span class="card-title">Commander Farsight</span>
+        <span class="card-desc">The legendary Crisis Suit commander who broke from the Tau'va. The Eight's leader.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/19Va4JJYxChIELBPCA8FVJu0am4ZBZi4z/view" target="_blank">
+        <span class="card-faction">T'au — Farsight Enclaves</span><span class="card-title">Commander Brightsword</span>
+        <span class="card-desc">Member of The Eight. Twin fusion blades specialist. Close-quarters duelist.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1ectCJIQ3JQMLYjYWQhgLqxEHMTO13qyh/view" target="_blank">
+        <span class="card-faction">T'au — Farsight Enclaves</span><span class="card-title">Commander Bravestorm</span>
+        <span class="card-desc">Member of The Eight. High-yield missile pod and airbursting fragmentation. Aggressive flanker.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1s6ih7wcyjTtGclDD-kJkTd6D8nHUSdyS/view" target="_blank">
+        <span class="card-faction">T'au — Farsight Enclaves</span><span class="card-title">Commander Arrakon</span>
+        <span class="card-desc">Member of The Eight. Crisis battlesuit commander. Steadfast protector of Farsight.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1rrgo3TFbCt6jXHxydfo1dm6mCOKplmKj/view" target="_blank">
+        <span class="card-faction">T'au — Farsight Enclaves</span><span class="card-title">Commander Torchstar</span>
+        <span class="card-desc">Member of The Eight. Flame specialist. Youngest of Farsight's brotherhood.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1QE5EU7pDMBmusXcj8mba-4vEGVOvIuTt/view" target="_blank">
+        <span class="card-faction">T'au — Farsight Enclaves</span><span class="card-title">Commander Oblotai 9-0</span>
+        <span class="card-desc">Member of The Eight. Stealth specialist. Ghostkeel-adjacent operations.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/1X_Mcm4RSwKUE9NHmQeaVSQYCKdkS3PYM/view" target="_blank">
+        <span class="card-faction">T'au — Farsight Enclaves</span><span class="card-title">Commander Shavastos</span>
+        <span class="card-desc">Member of The Eight. Optimised Stealth Suit systems. Saboteur and assassin.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+      <a class="content-card" href="https://drive.google.com/file/d/10Gx4EkXT-8U9KMx8wFummAjC_v95U5-F/view" target="_blank">
+        <span class="card-faction">T'au — Farsight Enclaves</span><span class="card-title">Commander O'Vesa</span>
+        <span class="card-desc">Member of The Eight. Riptide pilot. Brilliant engineer and tactician.</span><span class="card-tag">8th Ed → 10e</span>
+      </a>
+    </div>
+
+    <!-- Horus Heresy -->
+    <h3 style="font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);">Horus Heresy Era (Mechanicum)</h3>
+    <div class="content-grid">
+      <a class="content-card" href="https://tacowillj.github.io/nofigureleftbehind.github.io/#units"><span class="card-faction">Mechanicum</span><span class="card-title">Magos &amp; Magos on Abeyant</span><span class="card-desc">Mid-tier Mechanicum HQ. Cybertheurgist + Battlesmith. Abeyant variant adds Fly.</span><span class="card-tag">HH → 10e</span></a>
+      <a class="content-card" href="https://tacowillj.github.io/nofigureleftbehind.github.io/#units"><span class="card-faction">Mechanicum</span><span class="card-title">Tech-Priest</span><span class="card-desc">Budget Mechanicum character. Enables Sacred Algorithms. Repairs Battle-Automata.</span><span class="card-tag">HH → 10e</span></a>
+      <a class="content-card" href="https://tacowillj.github.io/nofigureleftbehind.github.io/#units"><span class="card-faction">Mechanicum</span><span class="card-title">Thallax Cohort</span><span class="card-desc">Cybernetic shock-troops with jump packs. Lightning gun armed. Cybernetic Resilience.</span><span class="card-tag">HH → 10e</span></a>
+      <a class="content-card" href="https://tacowillj.github.io/nofigureleftbehind.github.io/#units"><span class="card-faction">Mechanicum</span><span class="card-title">Ursarax Cohort</span><span class="card-desc">Heavy assault cybernetics. Paired lightning claws. Deep Strike capable.</span><span class="card-tag">HH → 10e</span></a>
+      <a class="content-card" href="https://tacowillj.github.io/nofigureleftbehind.github.io/#units"><span class="card-faction">Mechanicum</span><span class="card-title">Vorax Attack-Automata</span><span class="card-desc">Light predator scout robots. Scouts 9", Stealth, Hunter-Killer Subroutine.</span><span class="card-tag">HH → 10e</span></a>
+      <a class="content-card" href="https://tacowillj.github.io/nofigureleftbehind.github.io/#units"><span class="card-faction">Mechanicum</span><span class="card-title">Thanatar Siege-Automata</span><span class="card-desc">Heaviest Battle-Automata. Hellex plasma mortar. Multiple variants.</span><span class="card-tag">HH → 10e</span></a>
+      <a class="content-card" href="https://tacowillj.github.io/nofigureleftbehind.github.io/#units"><span class="card-faction">Mechanicum</span><span class="card-title">Myrmidon Secutor &amp; Destructor</span><span class="card-desc">Elite cybernetic brotherhoods. Melee and heavy-weapons specialists.</span><span class="card-tag">HH → 10e</span></a>
+      <a class="content-card" href="https://tacowillj.github.io/nofigureleftbehind.github.io/#units"><span class="card-faction">Mechanicum</span><span class="card-title">Ordinatus Ulator, Sagittar &amp; Aktaeus</span><span class="card-desc">Lord of War superheavies. Sonic destruction, beam cannon, and siege-drill.</span><span class="card-tag">HH → 10e</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- COMBAT PATROLS -->
+<section id="patrols">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-eyebrow">Homebrew Army Lists</span>
+      <h2 class="section-title">Combat Patrols</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="content-grid">
+      <a class="content-card" href="https://drive.google.com/file/d/1y0B4UEGZpwyOFHDIIs9XR7UsfUhgdvhs/view" target="_blank"><span class="card-faction">Aeldari — Ulthwé</span><span class="card-title">The Damned</span><span class="card-desc">Farseer + Warlock + Black Guardians + Dire Avengers + Wave Serpent.</span><span class="card-tag">Homebrew</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1MAnk6aVwdvo0zsU7ClgjkP_cvVG3vgGa/view" target="_blank"><span class="card-faction">Aeldari — Iyanden</span><span class="card-title">Wraithhost</span><span class="card-desc">Wraithguard + Wraithblades + Wraithlord + Spiritseer. Ghosts of Iyanden.</span><span class="card-tag">Homebrew</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1djoHOLQYGxochjcynNDdKGS46DEFAywP/view" target="_blank"><span class="card-faction">Aeldari — Saim-Hann</span><span class="card-title">Wild Hunt</span><span class="card-desc">All-jetbike list. Farseer Skyrunner + Windriders + Vyper. Advance and Charge.</span><span class="card-tag">Homebrew</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1NTo0UhJA1MAiSJdgT4VoQI-xS3ltoFNi/view" target="_blank"><span class="card-faction">Aeldari — Ynnari</span><span class="card-title">Whisper of Ynnead</span><span class="card-desc">Yvraine + Visarch + Wraithblades + Guardians. Strength from Death. 440 pts.</span><span class="card-tag">Homebrew</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1PxZSZZ02RBlK0ZttUhSTear1q70U_dk6/view" target="_blank"><span class="card-faction">Aeldari — Alaitoc</span><span class="card-title">Hidden Hunt</span><span class="card-desc">Illic Nightspear + Pathfinders + Rangers + Wave Serpent. Stalking Patrol.</span><span class="card-tag">Homebrew</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1o2UDyrEptCwjIdxK9C4g7kZzd5x16jmA/view" target="_blank"><span class="card-faction">Aeldari — Biel-Tan</span><span class="card-title">Swordwind Descends</span><span class="card-desc">Aspect Warriors + Wave Serpent. Children of Khaine. Re-roll Wound 1s.</span><span class="card-tag">Homebrew</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/15Gk7e_XDqEnp9ZtgeXc5UKbBf_BUbe1d/view" target="_blank"><span class="card-faction">Aeldari — Asuryani</span><span class="card-title">Seer Council</span><span class="card-desc">Farseer + Warlocks + support units. Psychic mastery patrol.</span><span class="card-tag">Homebrew</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/19w6TjxMNPP_goiLYpZZHk1uD44m3Uskd/view" target="_blank"><span class="card-faction">Astra Militarum — Steel Legion</span><span class="card-title">The Iron Tide</span><span class="card-desc">Full mechanised Steel Legion platoon. Chimera-mounted assault. 495 pts.</span><span class="card-tag">Homebrew</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1PZBTJxbl1DJ6kLoCCMBI5fH5WbbLmkIB/view" target="_blank"><span class="card-faction">Astra Militarum — Attilan</span><span class="card-title">Steppe Khan's Hunt</span><span class="card-desc">All-cavalry. Mogul Kamir + Rough Riders + Death Riders. Stampede. 525 pts.</span><span class="card-tag">Homebrew</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/17HgJTeaHeFkU-eeLETtYaSuSj1ByYgYf/view" target="_blank"><span class="card-faction">Astra Militarum — Catachan</span><span class="card-title">Devil's Claw</span><span class="card-desc">Catachan Commander + Jungle Fighters + Sly Marbo + Sentinels + Hellhound. 470 pts.</span><span class="card-tag">Homebrew</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1Mon2-u-IK0fq981Yunw_QDVC7w-cHhyx/view" target="_blank"><span class="card-faction">Astra Militarum — Tallarn</span><span class="card-title">Sons of Tallarn</span><span class="card-desc">Desert raiders in mechanised mobility. Hit and run specialists.</span><span class="card-tag">Homebrew</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1COFK01DbRV07x1bYe7aAbOskwKik6Awc/view" target="_blank"><span class="card-faction">Mechanicum — Taghmata</span><span class="card-title">Sacred Maniple</span><span class="card-desc">Core Taghmata Omnissiah maniple. Brings HH Mechanicum to 10th Edition patrol scale.</span><span class="card-tag">Homebrew</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1DS7NKLpR2A66OZ3ejkfehCrRImLg39pZ/view" target="_blank"><span class="card-faction">Mechanicum — Dark Mechanicum</span><span class="card-title">Heretek Maniple</span><span class="card-desc">Corrupted Mechanicum. Tech-heresy and daemon-machines in patrol form.</span><span class="card-tag">Homebrew</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1RQHFuM904HoN6bRF-LsUu7ncHrX-xUV7/view" target="_blank"><span class="card-faction">Space Marines — Astral Claws</span><span class="card-title">Shield of Badab</span><span class="card-desc">Defensive Astral Claws patrol. Holding the line against loyalist forces.</span><span class="card-tag">Homebrew</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1724Jae8lxZG7ziKUXVZHMMA4jBWXdyOF/view" target="_blank"><span class="card-faction">Space Marines — Astral Claws</span><span class="card-title">Tyrant's Spear</span><span class="card-desc">Assault vanguard of the Tyrant. Strike force patrol. Fast and aggressive.</span><span class="card-tag">Homebrew</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1nLV28dKVjY6RBqQjT2gS7BuIenqpxbu5/view" target="_blank"><span class="card-faction">Space Marines — Astral Claws</span><span class="card-title">Valthex's Forge</span><span class="card-desc">Tech-focused Astral Claws patrol led by Armenneus Valthex. Machine cult warriors.</span><span class="card-tag">Homebrew</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1L0-Ji_FlzAqLrHcJjf1-pT2mcYVQNaVm/view" target="_blank"><span class="card-faction">Orks — Evil Sunz</span><span class="card-title">Wazdakka's Roadkillaz</span><span class="card-desc">Speed freeks and bikers. Fast, loud, and very dakka. Waaagh! on wheels.</span><span class="card-tag">Homebrew</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1hqS_09Kgj5JM-HDPjd8iGkBIoVBHm4Id/view" target="_blank"><span class="card-faction">Orks — Bad Moons</span><span class="card-title">Da Yellaboyz Mek Mob</span><span class="card-desc">Rich Orks with the best gear. Meks, Lootas, and flashy weapons. Dakka dakka dakka.</span><span class="card-tag">Homebrew</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1XjHNp9ZHXP4JFG7BkRGlUF4i1tnNqos8/view" target="_blank"><span class="card-faction">T'au — Farsight Enclaves</span><span class="card-title">The Eight</span><span class="card-desc">Commander Farsight and his legendary brotherhood of Crisis Suit veterans.</span><span class="card-tag">Homebrew</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1VsXC1b_e1VAQDAeqoxjTGfDU9_9C4v9c/view" target="_blank"><span class="card-faction">Chaos — Legion of the Damned</span><span class="card-title">The Hour of Manifestation</span><span class="card-desc">Spectral warriors of the Legion of the Damned. Manifestation detachment rules.</span><span class="card-tag">Homebrew</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- DETACHMENTS -->
+<section id="detachments">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-eyebrow">Faction Rules</span>
+      <h2 class="section-title">Detachments</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="content-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));">
+      <a class="content-card" href="https://drive.google.com/file/d/1z3i86lt9W688SBYsflfRIXG77FuNH0Va/view" target="_blank"><span class="card-faction">Aeldari</span><span class="card-title">Ulthwé Strike Force</span><span class="card-desc">The Children of Isha's darkest kin. Detachment rules for the Ulthwé craftworld.</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1JefICpOAtSn2ZCA-EkY9TAlfMzwy2Wrc/view" target="_blank"><span class="card-faction">Aeldari</span><span class="card-title">Path of the Outcast</span><span class="card-desc">Rangers and outcasts. Detachment rules for those who walk the path of the wanderer.</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1qwIRgrXuKdsQbxBXC7__4lDG_b1QgV8d/view" target="_blank"><span class="card-faction">Astra Militarum</span><span class="card-title">Mechanised Strike Force</span><span class="card-desc">Steel Legion-style mechanised warfare. Chimera-mounted infantry detachment rules.</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1GyHtB7WxLUxeffnk67F6YnsJfYq9Vzgb/view" target="_blank"><span class="card-faction">Mechanicum</span><span class="card-title">Taghmata Omnissiah</span><span class="card-desc">The sacred crusade of the machine. Full Taghmata detachment rules for 10th Edition.</span></a>
+      <a class="content-card" href="https://drive.google.com/file/d/1JWf6DRPp3E4B4_8vhozaA5h5P_zOFZmv/view" target="_blank"><span class="card-faction">Mechanicum</span><span class="card-title">Dark Mechanicum</span><span class="card-desc">Hereteks and corruption. Detachment rules for the machine-heretics of the Dark Mechanicum.</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-skull">☠</span>
+    <p class="footer-title">No Figure Left Behind — The Primarch Project</p>
+    <p class="footer-text">A fan-made archive of homebrew Warhammer 40,000 rules for units removed, lost to editions past,
+      or never given 10th Edition support. Made with love by collectors who refuse to let their miniatures gather dust.</p>
+    <p class="footer-disclaimer">
+      THIS PROJECT IS NOT AFFILIATED WITH OR ENDORSED BY GAMES WORKSHOP LTD.<br>
+      WARHAMMER 40,000 IS A TRADEMARK OF GAMES WORKSHOP LTD.<br>
+      ALL HOMEBREW CONTENT IS FAN-MADE AND OFFERED FREELY FOR NON-COMMERCIAL USE.
+    </p>
+  </div>
+</footer>
 
 </body>
 </html>
