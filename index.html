@@ -37,7 +37,7 @@
     .bracket--tr{top:72px;right:2rem;border-top:1px solid var(--gold);border-right:1px solid var(--gold);}
     .bracket--bl{bottom:20px;left:2rem;border-bottom:1px solid var(--gold);border-left:1px solid var(--gold);}
     .bracket--br{bottom:20px;right:2rem;border-bottom:1px solid var(--gold);border-right:1px solid var(--gold);}
-    .hero-inner{position:relative;z-index:2;text-align:center;max-width:820px;}
+    .hero-inner{position:relative;z-index:2;text-align:center;max-width:900px;}
     .hero-pretitle{font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:.5em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:2rem;animation:fadeUp 1s .1s both;}
     .hero-skull{font-size:2.8rem;line-height:1;display:block;margin-bottom:1.5rem;color:var(--red-bright);text-shadow:0 0 30px rgba(176,48,32,.7),0 0 80px rgba(122,21,21,.4);animation:fadeUp 1s .2s both,skullPulse 5s 1.2s ease-in-out infinite;}
     @keyframes skullPulse{0%,100%{text-shadow:0 0 30px rgba(176,48,32,.7),0 0 80px rgba(122,21,21,.4);}50%{text-shadow:0 0 50px rgba(200,60,40,.9),0 0 120px rgba(150,30,20,.6);}}
@@ -52,7 +52,8 @@
     @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
     .scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:2;color:var(--gold-dim);font-size:1.2rem;animation:fadeUp 1s 1.2s both,caretBounce 2s 2.2s ease-in-out infinite;}
     @keyframes caretBounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(7px);}}
-    .nav-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;width:100%;max-width:800px;border:1px solid var(--border);background:var(--border);animation:fadeUp 1s .8s both;}
+    /* CHANGE 1: 5 columns, wider max-width */
+    .nav-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;width:100%;max-width:1000px;border:1px solid var(--border);background:var(--border);animation:fadeUp 1s .8s both;}
     .nav-card{background:var(--surface);padding:1.75rem 1.25rem;text-align:center;text-decoration:none;color:var(--text);display:flex;flex-direction:column;align-items:center;gap:.4rem;position:relative;overflow:hidden;transition:background .25s;}
     .nav-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),var(--gold));transform:scaleX(0);transition:transform .3s ease;}
     .nav-card:hover{background:var(--panel);}.nav-card:hover::after{transform:scaleX(1);}.nav-card:hover .nav-card-title{color:var(--gold-bright);}
@@ -124,7 +125,8 @@
     .footer-title{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.3em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:.75rem;}
     .footer-text{font-size:.85rem;font-style:italic;color:var(--text-dim);line-height:1.7;margin-bottom:1.5rem;}
     .footer-disclaimer{font-family:'Share Tech Mono',monospace;font-size:.55rem;letter-spacing:.1em;color:var(--text-dim);opacity:.6;line-height:1.8;}
-    @media(max-width:700px){.nav-cards{grid-template-columns:1fr 1fr;}.about-grid{grid-template-columns:1fr;}.stats-bar{grid-template-columns:1fr 1fr;}.topbar-brand{font-size:.6rem;}.topbar-nav a{padding:0 .6rem;font-size:.58rem;}}
+    @media(max-width:800px){.nav-cards{grid-template-columns:repeat(3,1fr);}.about-grid{grid-template-columns:1fr;}.stats-bar{grid-template-columns:1fr 1fr;}.topbar-brand{font-size:.6rem;}.topbar-nav a{padding:0 .6rem;font-size:.58rem;}}
+    @media(max-width:500px){.nav-cards{grid-template-columns:1fr 1fr;}}
   </style>
 </head>
 <body>
@@ -137,6 +139,8 @@
     <a href="https://tacowillj.github.io/nofigureleftbehind.github.io/#units">Units</a>
     <a href="https://tacowillj.github.io/nofigureleftbehind.github.io/#patrols">Patrols</a>
     <a href="https://tacowillj.github.io/nofigureleftbehind.github.io/#detachments">Detachments</a>
+    <!-- CHANGE 2: Paint Chart nav link -->
+    <a href="paint-conversion-chart.html">&#127912; Paint Chart</a>
   </div>
 </nav>
 
@@ -157,6 +161,8 @@
       <a class="nav-card" href="https://tacowillj.github.io/nofigureleftbehind.github.io/#primarchs"><span class="nav-card-icon">&#128081;</span><span class="nav-card-label">Primarchs</span><span class="nav-card-title">The XVIII</span></a>
       <a class="nav-card" href="https://tacowillj.github.io/nofigureleftbehind.github.io/#units"><span class="nav-card-icon">&#9876;&#65039;</span><span class="nav-card-label">Datasheets</span><span class="nav-card-title">Homebrew Units</span></a>
       <a class="nav-card" href="https://tacowillj.github.io/nofigureleftbehind.github.io/#patrols"><span class="nav-card-icon">&#128737;&#65039;</span><span class="nav-card-label">Army Lists</span><span class="nav-card-title">Combat Patrols</span></a>
+      <!-- CHANGE 3: 5th hero card -->
+      <a class="nav-card" href="paint-conversion-chart.html"><span class="nav-card-icon">&#127912;</span><span class="nav-card-label">Paint Chart</span><span class="nav-card-title">Colour Conversion</span></a>
     </nav>
   </div>
   <div class="scroll-hint">&#9660;</div>
@@ -416,169 +422,4 @@
       <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Primus Medicae.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Primus Medicae</span><span class="card-desc">Legion Apothecary champion. Keeps warriors fighting past lethal injuries.</span><span class="card-tag">HH &rarr; 10e</span></a>
       <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Master of Signals.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Master of Signals</span><span class="card-desc">Legion communications officer. Orbital bombardment and fire coordination.</span><span class="card-tag">HH &rarr; 10e</span></a>
       <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Master of Descent.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Master of Descent</span><span class="card-desc">Legion jump pack specialist officer. Commander of aerial assault forces.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Moritat.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Moritat</span><span class="card-desc">Legion death-dealer. Twin pistols, Whirlwind of Death. Solo killer extraordinaire.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Mortificator.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Mortificator</span><span class="card-desc">Legion Chaplain specialist. Master of punishment and battle rites.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Esoterist.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Esoterist</span><span class="card-desc">Legion Librarian specialist. Master of arcane psychic battle-craft.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Herald.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Herald</span><span class="card-desc">Legion banner bearer and morale officer. Carries the Legion's honour into battle.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Vigilator.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Vigilator</span><span class="card-desc">Legion assassin. Surprise Strike and Hunter abilities. Lone operative specialist.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Siege Breaker.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Siege Breaker</span><span class="card-desc">Legion siege specialist. Master of breaching charges and fortification destruction.</span><span class="card-tag">HH &rarr; 10e</span></a>
-    </div>
-
-    <h3 class="sub-header mb2">Horus Heresy &mdash; Legion Space Marines: Troops, Vehicles &amp; Flyers</h3>
-    <div class="content-grid">
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Breacher Squad.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Breacher Squad</span><span class="card-desc">Shield-bearing assault infantry. Boarding specialists with high resilience.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Despoiler Squad.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Despoiler Squad</span><span class="card-desc">Assault-focused Legion infantry. Chainswords and bolt pistols. +1 A on charge.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Tactical Support Squad.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Tactical Support Squad</span><span class="card-desc">Heavy weapon Legion infantry. Melta, plasma, and volkite specialists.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Seeker Squad.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Seeker Squad</span><span class="card-desc">Legion precision killers. Identify and eliminate enemy commanders.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Destroyer Squad.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Destroyer Squad</span><span class="card-desc">Rad and chemical weapon specialists. Forbidden weapons of mass effect.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Veteran Assault Squad.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Veteran Assault Squad</span><span class="card-desc">Jump pack veterans. The finest assault troops of the Legion in the air.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Recon Squad (HH).pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Recon Squad</span><span class="card-desc">Legion scouts and infiltrators. Forward observers and pathfinders.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Saturnine Terminator Squad.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Saturnine Terminator Squad</span><span class="card-desc">Ancient Terminator pattern. Saturnine plate. Damage-1 attacks become Damage-0.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Outrider Squadron.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Outrider Squadron</span><span class="card-desc">Legion bike squadron. Fast attack cavalry of the Heresy era. Scouts 9".</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Scimitar Jetbike Squadron.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Scimitar Jetbike Squadron</span><span class="card-desc">Legion jetbike cavalry. Volkite culverin armed. Advance and Shoot.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Javelin Speeder Squadron.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Javelin Speeder Squadron</span><span class="card-desc">Legion Land Speeder variant. Cyclone missile launcher and multi-melta options.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Castra Ferrum Dreadnought.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Castra Ferrum Dreadnought</span><span class="card-desc">Legion Dreadnought variant. Heavier armour than standard patterns.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Saturnine Dreadnought.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Saturnine Dreadnought</span><span class="card-desc">Ancient Saturnine-pattern Dreadnought. Pre-Heresy design with unique capabilities.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Sabre Strike Tank.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Sabre Strike Tank</span><span class="card-desc">Legion light tank destroyer. Fast, low-profile, hard-hitting.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Kratos Assault Tank.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Kratos Assault Tank</span><span class="card-desc">Massive Legion battle tank. Kratos battlecannon. Fortress on tracks.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Legion Medusa.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Legion Medusa</span><span class="card-desc">Legion siege gun tank. Medusa siege cannon for destroying fortifications.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Hyperios Missile Tank.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Hyperios Missile Tank</span><span class="card-desc">Anti-air missile tank. Sustained Hits 2 + Lethal Hits vs Fly/Aircraft.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Arquitor Bombard.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Arquitor Bombard</span><span class="card-desc">Legion artillery. Graviton, spicula and morbus weapon options.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Damocles Command Rhino.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Damocles Command Rhino</span><span class="card-desc">Legion command vehicle. Orbital bombardment relay and strategic comms hub.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Tarantula Sentry Gun Battery.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Tarantula Sentry Gun Battery</span><span class="card-desc">Automated sentry guns. Set up a defensive perimeter and let the automata fight.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Fire Raptor.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Fire Raptor</span><span class="card-desc">Legion gunship. Quad bolter array and reaper autocannon batteries. Air superiority.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Sokar Stormbird.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Sokar Stormbird</span><span class="card-desc">Ancient Legion dropship. Predecessor to the Thunderhawk. Massive troop carrier.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Thunderhawk Transporter.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Thunderhawk Transporter</span><span class="card-desc">Vehicle transport Thunderhawk. Carries tanks into battle from orbit.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Caestus Assault Ram.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Caestus Assault Ram</span><span class="card-desc">Boarding assault flyer. Rams into enemy ships and fortifications. Melta cutters.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Kharybdis Assault Claw.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Kharybdis Assault Claw</span><span class="card-desc">Drop pod assault vehicle. Boarding claw with melta and assault ramps.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Dreadclaw Drop Pod.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Dreadclaw Drop Pod</span><span class="card-desc">Assault drop pod with legs. Can move after landing.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Termite Assault Drill.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Termite Assault Drill</span><span class="card-desc">Subterranean assault drill for infantry. Emerges under enemy lines.</span><span class="card-tag">HH &rarr; 10e</span></a>
-      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Warmonger.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Warmonger</span><span class="card-desc">Heavy aerial gunship variant. Superior firepower to the standard Thunderhawk.</span><span class="card-tag">HH &rarr; 10e</span></a>
-    </div>
-  </div>
-</section>
-
-<section id="patrols">
-  <div class="section-inner">
-    <div class="section-header">
-      <span class="section-eyebrow">Homebrew Army Lists</span>
-      <h2 class="section-title">Combat Patrols</h2>
-      <div class="section-rule"></div>
-    </div>
-    <div class="content-grid">
-      <a class="content-card" data-tags="aeldari" data-faction="Aeldari &mdash; Ulthw&eacute;" href="pdfs/The Damned (Ulthwe).pdf" target="_blank"><span class="card-faction">Aeldari &mdash; Ulthw&eacute;</span><span class="card-title">The Damned</span><span class="card-desc">Farseer + Warlock + Black Guardians + Dire Avengers + Wave Serpent. Ulthw&eacute; Strike Force detachment.</span><span class="card-tag">Homebrew</span></a>
-      <a class="content-card" data-tags="aeldari" data-faction="Aeldari &mdash; Iyanden" href="pdfs/Wraithhost (Iyanden).pdf" target="_blank"><span class="card-faction">Aeldari &mdash; Iyanden</span><span class="card-title">Wraithhost</span><span class="card-desc">Wraithguard + Wraithblades + Wraithlord + Spiritseer. Ghosts of Iyanden.</span><span class="card-tag">Homebrew</span></a>
-      <a class="content-card" data-tags="aeldari" data-faction="Aeldari &mdash; Saim-Hann" href="pdfs/Wild Hunt (Saim-Hann).pdf" target="_blank"><span class="card-faction">Aeldari &mdash; Saim-Hann</span><span class="card-title">Wild Hunt</span><span class="card-desc">All-jetbike list. Farseer Skyrunner + Windriders + Vyper. Advance and Charge.</span><span class="card-tag">Homebrew</span></a>
-      <a class="content-card" data-tags="aeldari" data-faction="Aeldari &mdash; Ynnari" href="pdfs/Whisper of Ynnead (Ynnari).pdf" target="_blank"><span class="card-faction">Aeldari &mdash; Ynnari</span><span class="card-title">Whisper of Ynnead</span><span class="card-desc">Yvraine + Visarch + Wraithblades + Guardians. Strength from Death. 440 pts.</span><span class="card-tag">Homebrew</span></a>
-      <a class="content-card" data-tags="aeldari" data-faction="Aeldari &mdash; Alaitoc" href="pdfs/Hidden Hunt (Alaitoc).pdf" target="_blank"><span class="card-faction">Aeldari &mdash; Alaitoc</span><span class="card-title">Hidden Hunt</span><span class="card-desc">Illic Nightspear + Pathfinders + Rangers + Wave Serpent. Stalking Patrol.</span><span class="card-tag">Homebrew</span></a>
-      <a class="content-card" data-tags="aeldari" data-faction="Aeldari &mdash; Biel-Tan" href="pdfs/Swordwind Descends (Biel-Tan).pdf" target="_blank"><span class="card-faction">Aeldari &mdash; Biel-Tan</span><span class="card-title">Swordwind Descends</span><span class="card-desc">Aspect Warriors + Wave Serpent. Children of Khaine. Re-roll Wound 1s.</span><span class="card-tag">Homebrew</span></a>
-      <a class="content-card" data-tags="aeldari" data-faction="Aeldari &mdash; Asuryani" href="pdfs/Seer Council (Asuryani).pdf" target="_blank"><span class="card-faction">Aeldari &mdash; Asuryani</span><span class="card-title">Seer Council</span><span class="card-desc">Farseer + Warlocks + support units. Council of Seers detachment. Psychic mastery patrol.</span><span class="card-tag">Homebrew</span></a>
-      <a class="content-card" data-tags="astra-militarum" data-faction="Astra Militarum &mdash; Steel Legion" href="pdfs/The Iron Tide (Steel Legion Platoon).pdf" target="_blank"><span class="card-faction">Astra Militarum &mdash; Steel Legion</span><span class="card-title">The Iron Tide</span><span class="card-desc">Mechanised Steel Legion platoon. PCS + Infantry + Armoured Sentinels + Chimeras. 460 pts.</span><span class="card-tag">Homebrew</span></a>
-      <a class="content-card" data-tags="astra-militarum" data-faction="Astra Militarum &mdash; Attilan" href="pdfs/Steppe Khans Hunt (Attilan).pdf" target="_blank"><span class="card-faction">Astra Militarum &mdash; Attilan</span><span class="card-title">Steppe Khan's Hunt</span><span class="card-desc">All-cavalry. Mogul Kamir + Rough Riders + Death Riders. Stampede. 525 pts.</span><span class="card-tag">Homebrew</span></a>
-      <a class="content-card" data-tags="astra-militarum" data-faction="Astra Militarum &mdash; Catachan" href="pdfs/Devils Claw (Catachan).pdf" target="_blank"><span class="card-faction">Astra Militarum &mdash; Catachan</span><span class="card-title">Devil's Claw</span><span class="card-desc">Catachan Commander + Jungle Fighters + Sly Marbo + Sentinels + Hellhound.</span><span class="card-tag">Homebrew</span></a>
-      <a class="content-card" data-tags="astra-militarum" data-faction="Astra Militarum &mdash; Tallarn" href="pdfs/Sons of Tallarn.pdf" target="_blank"><span class="card-faction">Astra Militarum &mdash; Tallarn</span><span class="card-title">Sons of Tallarn</span><span class="card-desc">Al'Rahem-led Infantry Platoon + Rough Riders + Sentinel + Leman Russ. Desert outflank. 545 pts.</span><span class="card-tag">Homebrew</span></a>
-      <a class="content-card" data-tags="mechanicum horus-heresy" data-faction="Mechanicum &mdash; Taghmata" href="pdfs/Sacred Maniple (Taghmata Omnissiah).pdf" target="_blank"><span class="card-faction">Mechanicum &mdash; Taghmata</span><span class="card-title">Sacred Maniple</span><span class="card-desc">Core Taghmata Omnissiah maniple. Brings HH Mechanicum to 10th Edition patrol scale.</span><span class="card-tag">Homebrew</span></a>
-      <a class="content-card" data-tags="mechanicum horus-heresy" data-faction="Mechanicum &mdash; Dark Mechanicum" href="pdfs/Heretek Maniple (Dark Mechanicum).pdf" target="_blank"><span class="card-faction">Mechanicum &mdash; Dark Mechanicum</span><span class="card-title">Heretek Maniple</span><span class="card-desc">Corrupted Mechanicum. Tech-heresy and daemon-machines in patrol form.</span><span class="card-tag">Homebrew</span></a>
-      <a class="content-card" data-tags="space-marines" data-faction="Space Marines &mdash; Astral Claws" href="pdfs/Shield of Badab (Astral Claws).pdf" target="_blank"><span class="card-faction">Space Marines &mdash; Astral Claws</span><span class="card-title">Shield of Badab</span><span class="card-desc">Defensive Astral Claws patrol. Holding the line against loyalist forces.</span><span class="card-tag">Homebrew</span></a>
-      <a class="content-card" data-tags="space-marines" data-faction="Space Marines &mdash; Astral Claws" href="pdfs/Tyrants Spear (Astral Claws).pdf" target="_blank"><span class="card-faction">Space Marines &mdash; Astral Claws</span><span class="card-title">Tyrant's Spear</span><span class="card-desc">Assault vanguard of the Tyrant. Strike force patrol. Fast and aggressive.</span><span class="card-tag">Homebrew</span></a>
-      <a class="content-card" data-tags="space-marines" data-faction="Space Marines &mdash; Astral Claws" href="pdfs/Valthexs Forge (Astral Claws).pdf" target="_blank"><span class="card-faction">Space Marines &mdash; Astral Claws</span><span class="card-title">Valthex's Forge</span><span class="card-desc">Tech-focused Astral Claws patrol led by Armenneus Valthex. Machine cult warriors.</span><span class="card-tag">Homebrew</span></a>
-      <a class="content-card" data-tags="orks" data-faction="Orks &mdash; Evil Sunz" href="pdfs/Wazdakkas Roadkillaz (Evil Sunz).pdf" target="_blank"><span class="card-faction">Orks &mdash; Evil Sunz</span><span class="card-title">Wazdakka's Roadkillaz</span><span class="card-desc">Speed freeks and bikers. Fast, loud, very dakka. Waaagh! on wheels.</span><span class="card-tag">Homebrew</span></a>
-      <a class="content-card" data-tags="orks" data-faction="Orks &mdash; Bad Moons" href="pdfs/Da Yellaboyz Mek Mob (Bad Moons).pdf" target="_blank"><span class="card-faction">Orks &mdash; Bad Moons</span><span class="card-title">Da Yellaboyz Mek Mob</span><span class="card-desc">Rich Orks with the best gear. Meks, Lootas, and flashy weapons. Dakka dakka dakka.</span><span class="card-tag">Homebrew</span></a>
-      <a class="content-card" data-tags="tau" data-faction="T'au &mdash; Farsight Enclaves" href="pdfs/The Eight (Farsight Enclaves).pdf" target="_blank"><span class="card-faction">T'au &mdash; Farsight Enclaves</span><span class="card-title">The Eight</span><span class="card-desc">Commander Farsight and his legendary brotherhood of Crisis Suit veterans. Bond of Eight detachment.</span><span class="card-tag">Homebrew</span></a>
-      <a class="content-card" data-tags="chaos" data-faction="Chaos &mdash; Legion of the Damned" href="pdfs/The Hour of Manifestation (LoD).pdf" target="_blank"><span class="card-faction">Chaos &mdash; Legion of the Damned</span><span class="card-title">The Hour of Manifestation</span><span class="card-desc">Spectral warriors of the Legion of the Damned. Manifestation detachment rules.</span><span class="card-tag">Homebrew</span></a>
-    </div>
-  </div>
-</section>
-
-<section id="detachments">
-  <div class="section-inner">
-    <div class="section-header">
-      <span class="section-eyebrow">Faction Rules</span>
-      <h2 class="section-title">Detachments</h2>
-      <div class="section-rule"></div>
-    </div>
-    <div class="content-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));">
-      <a class="content-card" data-tags="aeldari" data-faction="Aeldari" href="pdfs/Ulthwé Strike Force.pdf" target="_blank"><span class="card-faction">Aeldari</span><span class="card-title">Ulthw&eacute; Strike Force</span><span class="card-desc">Guardians gain +1 BS/WS (3+ instead of 4+). Craftworld rules for Ulthw&eacute;.</span></a>
-      <a class="content-card" data-tags="aeldari" data-faction="Aeldari" href="pdfs/Path of the Outcast.pdf" target="_blank"><span class="card-faction">Aeldari</span><span class="card-title">Path of the Outcast</span><span class="card-desc">Watchful Exile &mdash; Rangers gain Stealth and Lethal Hits when stationary. Outcast detachment rules.</span></a>
-      <a class="content-card" data-tags="astra-militarum" data-faction="Astra Militarum" href="pdfs/Mechanised Strike Force.pdf" target="_blank"><span class="card-faction">Astra Militarum</span><span class="card-title">Mechanised Strike Force</span><span class="card-desc">Mechanised Doctrine &mdash; embarked Infantry +1 OC; disembarked fires Heavy weapons at full BS.</span></a>
-      <a class="content-card" data-tags="mechanicum horus-heresy" data-faction="Mechanicum" href="pdfs/Taghmata Omnissiah.pdf" target="_blank"><span class="card-faction">Mechanicum</span><span class="card-title">Taghmata Omnissiah</span><span class="card-desc">The sacred crusade of the machine. Full Taghmata detachment rules for 10th Edition.</span></a>
-      <a class="content-card" data-tags="mechanicum horus-heresy" data-faction="Mechanicum" href="pdfs/Dark Mechanicum.pdf" target="_blank"><span class="card-faction">Mechanicum</span><span class="card-title">Dark Mechanicum</span><span class="card-desc">Hereteks and corruption. Detachment rules for the machine-heretics of the Dark Mechanicum.</span></a>
-      <a class="content-card" data-tags="space-marines" data-faction="Space Marines &mdash; Legion of the Damned" href="pdfs/Legion of the Damned Detachment.pdf" target="_blank"><span class="card-faction">Space Marines &mdash; Legion of the Damned</span><span class="card-title">Legion of the Damned</span><span class="card-desc">Spectral warriors who return from the void. Full detachment rules for the Legion of the Damned in 10th Edition.</span></a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="footer-inner">
-    <span class="footer-skull">&#9760;</span>
-    <p class="footer-title">No Figure Left Behind &mdash; The Primarch Project</p>
-    <p class="footer-text">A fan-made archive of homebrew Warhammer 40,000 rules for units removed, lost to editions past, or never given 10th Edition support. Made with love by collectors who refuse to let their miniatures gather dust.</p>
-    <p class="footer-disclaimer">THIS PROJECT IS NOT AFFILIATED WITH OR ENDORSED BY GAMES WORKSHOP LTD.<br>WARHAMMER 40,000 IS A TRADEMARK OF GAMES WORKSHOP LTD.<br>ALL HOMEBREW CONTENT IS FAN-MADE AND OFFERED FREELY FOR NON-COMMERCIAL USE.</p>
-  </div>
-</footer>
-
-
-<script>
-(function(){
-  const searchInput = document.getElementById('unitSearch');
-  const pills = document.querySelectorAll('#filterPills .pill');
-  const cards = document.querySelectorAll('#units .content-card');
-  const subHeaders = document.querySelectorAll('#units .sub-header');
-  const grids = document.querySelectorAll('#units .content-grid');
-  const noResults = document.getElementById('noResults');
-  let activeFilter = 'all';
-
-  function normalise(str){ return str.toLowerCase().replace(/[^a-z0-9 ]/g,' '); }
-
-  function applyFilters(){
-    const query = normalise(searchInput.value.trim());
-    let visible = 0;
-
-    cards.forEach(card => {
-      const tags = card.dataset.tags || '';
-      const faction = normalise(card.dataset.faction || '');
-      const title = normalise(card.querySelector('.card-title')?.textContent || '');
-      const desc  = normalise(card.querySelector('.card-desc')?.textContent || '');
-      const tag   = normalise(card.querySelector('.card-tag')?.textContent || '');
-
-      const matchesFilter = activeFilter === 'all' || tags.includes(activeFilter);
-      const matchesSearch = !query || [faction,title,desc,tag].some(t => t.includes(query));
-
-      if(matchesFilter && matchesSearch){
-        card.classList.remove('hidden');
-        visible++;
-      } else {
-        card.classList.add('hidden');
-      }
-    });
-
-    // Hide sub-headers whose grid has no visible cards
-    subHeaders.forEach(header => {
-      let next = header.nextElementSibling;
-      while(next && !next.classList.contains('content-grid')){
-        next = next.nextElementSibling;
-      }
-      if(!next) return;
-      const hasVisible = next.querySelector('.content-card:not(.hidden)');
-      header.classList.toggle('hidden', !hasVisible);
-      next.classList.toggle('all-hidden', !hasVisible);
-    });
-
-    noResults.style.display = visible === 0 ? 'block' : 'none';
-  }
-
-  searchInput.addEventListener('input', applyFilters);
-
-  pills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      pills.forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-      activeFilter = pill.dataset.filter;
-      applyFilters();
-    });
-  });
-})();
-</script>
-
-</body>
-</html>
+      <a class="content-card" data-tags="space-marines horus-heresy" data-faction="HH Space Marines" href="pdfs/Moritat.pdf" target="_blank"><span class="card-faction">HH Space Marines</span><span class="card-title">Moritat</span><span class="card-desc">Legion death-dealer. Twin pistols, Whirlwind of Death. Solo killer extraordinaire.</span><span class="card-tag">HH &rarr; 10e</sp
